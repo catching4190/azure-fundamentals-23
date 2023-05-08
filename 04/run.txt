@@ -1,0 +1,6 @@
+az login
+az account list
+az account set --subscription=""
+
+Connect-AzAccount
+Connect-AzAccount -TenantId ""
