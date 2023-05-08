@@ -33,3 +33,8 @@
 ### After resize
 
 ![VM after resize](vm-after-resize.png)
+
+### Exported template
+
+- [template.json](./ExportedTemplate-catching4190/template.json)
+- [parameters.json](./ExportedTemplate-catching4190/parameters.json)
