@@ -1,3 +1,3 @@
 {
-  "commandToExecute": "wget -O postdeploy.sh https://github.com/catching4190/azure-fundamentals-23/raw/8d3130751e6978b8d1c88614a6d74cce75c54de4/04/postdeploy.sh && chmod +x postdeploy.sh && sudo ./postdeploy.sh"
+  "commandToExecute": "wget -O postdeploy.sh https://github.com/catching4190/azure-fundamentals-23/raw/task-4/04/postdeploy.sh && chmod +x postdeploy.sh && sudo ./postdeploy.sh"
 }
