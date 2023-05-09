@@ -1,0 +1,67 @@
+> PS /Users/vglazhevskyi/Learning/azure-fundamentals-23/04> ./deployVM.ps1                                  
+Resource group do not exist
+Create new resource group  tetris-bc854b17
+{
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/tetris-bc854b17",
+  "location": "eastus",
+  "managedBy": null,
+  "name": "tetris-bc854b17",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+
+DeploymentName          : azuredeploy
+ResourceGroupName       : tetris-bc854b17
+ProvisioningState       : Succeeded
+Timestamp               : 5/9/2023 9:47:33 AM
+Mode                    : Incremental
+TemplateLink            : 
+Parameters              : 
+                          Name                        Type                       Value     
+                          ==========================  =========================  ==========
+                          vmName                      String                     "testNginxVM"
+                          adminUsername               String                     "catching"
+                          authenticationType          String                     "password"
+                          adminPasswordOrKey          SecureString               null      
+                          dnsLabelPrefix              String                     "tetris"  
+                          ubuntuOSVersion             String                     "18.04-LTS"
+                          location                    String                     "East US" 
+                          vmSize                      String                     "Standard_DS1_v2"
+                          virtualNetworkName          String                     "testNginxVMVNet"
+                          subnetName                  String                     "testNginxVMQSubnet"
+                          networkSecurityGroupName    String                     "testNginxVMNSG"
+                          
+Outputs                 : 
+                          Name             Type                       Value     
+                          ===============  =========================  ==========
+                          adminUsername    String                     "catching"
+                          hostname         String                     "tetris.eastus.cloudapp.azure.com"
+                          sshCommand       String                     "ssh catching@tetris.eastus.cloudapp.azure.com"
+                          
+DeploymentDebugLogLevel : 
+
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/tetris-bc854b17/providers/Microsoft.Compute/virtualMachines/testNginxVM/extensions/customScript",
+  "instanceView": null,
+  "location": "eastus",
+  "name": "customScript",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Azure.Extensions",
+  "resourceGroup": "tetris-bc854b17",
+  "settings": {
+    "commandToExecute": "echo apt-key add - && sudo apt-get -y update && sudo apt-get -y install nginx && sudo systemctl enable nginx && sudo systemctl start nginx"
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "2.1",
+  "typePropertiesType": "customScript"
+}

@@ -4,3 +4,6 @@ az account set --subscription=""
 
 Connect-AzAccount
 Connect-AzAccount -TenantId ""
+
+az group delete --resource-group tetris-bc854b17
+ssh -i ~/.ssh/id_rsa catching@tetris.eastus.cloudapp.azure.com

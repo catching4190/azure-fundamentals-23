@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "adminUsername": {
-            "value": ""
+            "value": "catching"
         },
         "adminPasswordOrKey": {
-            "value": ""
+            "value": "5XPtYZ*MdYto"
         },
         "dnsLabelPrefix": {
-            "value": ""
+            "value": "tetris"
         }
     }
 }
