@@ -1,0 +1,5 @@
+mkdir testwebapp2023
+cd $HOME/testwebapp2023
+git clone https://github.com/Azure-Samples/html-docs-hello-world.git
+cd html-docs-hello-world
+az webapp up --location westeurope --name testwebapp2023265656656 --html
