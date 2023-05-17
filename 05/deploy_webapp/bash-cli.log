@@ -1,0 +1,26 @@
+❯ az webapp up --resource-group glajik_rg_1636 --name testwebapp-21572
+Webapp 'testwebapp-21572' already exists. The command will deploy contents to the existing app.
+Creating AppServicePlan 'glajik_asp_7396' ...
+Creating zip with contents of dir /Users/vglazhevskyi/Learning/azure-fundamentals-23/05/deploy_webapp/app ...
+Getting scm site credentials for zip deployment
+Starting zip deployment. This operation can take a while to complete ...
+Deployment endpoint responded with status code 202
+You can launch the app at http://testwebapp-21572.azurewebsites.net
+Setting 'az webapp up' default arguments for current directory. Manage defaults with 'az configure --scope local'
+--resource-group/-g default: glajik_rg_1636
+--sku default: F1
+--plan/-p default: glajik_asp_7396
+--location/-l default: westeurope
+--name/-n default: testwebapp-21572
+{
+  "URL": "http://testwebapp-21572.azurewebsites.net",
+  "appserviceplan": "glajik_asp_7396",
+  "location": "westeurope",
+  "name": "testwebapp-21572",
+  "os": "Linux",
+  "resourcegroup": "glajik_rg_1636",
+  "runtime_version": "node|14-LTS",
+  "runtime_version_detected": "0.0",
+  "sku": "FREE",
+  "src_path": "//Users//vglazhevskyi//Learning//azure-fundamentals-23//05//deploy_webapp//app"
+}
