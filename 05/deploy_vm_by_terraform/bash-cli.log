@@ -1,0 +1,828 @@
+
+❯ az account list
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "8d3eeb6d-4534-4933-a2f1-019d9e341771",
+    "id": "43aa0595-8fda-44a4-b227-f3733785e5c2",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure subscription 1",
+    "state": "Enabled",
+    "tenantId": "8d3eeb6d-4534-4933-a2f1-019d9e341771",
+    "user": {
+      "name": "glajik@live.com",
+      "type": "user"
+    }
+  }
+]
+
+❯ az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2"
+
+Creating 'Contributor' role assignment under scope '/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2'
+The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
+{
+  "appId": "e11f3dd6-0aaf-4dab-a669-a63c63ea57c4",
+  "displayName": "azure-cli-2023-05-17-07-59-30",
+  "password": "12345~SpmCdAZyDXzscL12g4C3Uz~12345123451",
+  "tenant": "8d3eeb6d-4534-4933-a2f1-019d9e341771"
+}
+
+❯ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding hashicorp/azurerm versions matching "~> 2.0"...
+- Finding latest version of hashicorp/tls...
+- Finding latest version of hashicorp/random...
+- Installing hashicorp/azurerm v2.99.0...
+- Installed hashicorp/azurerm v2.99.0 (signed by HashiCorp)
+- Installing hashicorp/tls v4.0.4...
+- Installed hashicorp/tls v4.0.4 (signed by HashiCorp)
+- Installing hashicorp/random v3.5.1...
+- Installed hashicorp/random v3.5.1 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+❯ terraform plan -out main.tfplan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_linux_virtual_machine.myterraformvm will be created
+  + resource "azurerm_linux_virtual_machine" "myterraformvm" {
+      + admin_username                  = "azureuser"
+      + allow_extension_operations      = true
+      + computer_name                   = "myvm"
+      + disable_password_authentication = true
+      + extensions_time_budget          = "PT1H30M"
+      + id                              = (known after apply)
+      + location                        = "eastus"
+      + max_bid_price                   = -1
+      + name                            = "myVM"
+      + network_interface_ids           = (known after apply)
+      + patch_mode                      = "ImageDefault"
+      + platform_fault_domain           = -1
+      + priority                        = "Regular"
+      + private_ip_address              = (known after apply)
+      + private_ip_addresses            = (known after apply)
+      + provision_vm_agent              = true
+      + public_ip_address               = (known after apply)
+      + public_ip_addresses             = (known after apply)
+      + resource_group_name             = (known after apply)
+      + size                            = "Standard_DS1_v2"
+      + virtual_machine_id              = (known after apply)
+      + zone                            = (known after apply)
+
+      + admin_ssh_key {
+          + public_key = (known after apply)
+          + username   = "azureuser"
+        }
+
+      + boot_diagnostics {
+          + storage_account_uri = (known after apply)
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + name                      = "myOsDisk"
+          + storage_account_type      = "Premium_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "18.04-LTS"
+          + version   = "latest"
+        }
+    }
+
+  # azurerm_network_interface.myterraformnic will be created
+  + resource "azurerm_network_interface" "myterraformnic" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_domain_name_suffix   = (known after apply)
+      + location                      = "eastus"
+      + mac_address                   = (known after apply)
+      + name                          = "myNIC"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = (known after apply)
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "myNicConfiguration"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + public_ip_address_id                               = (known after apply)
+          + subnet_id                                          = (known after apply)
+        }
+    }
+
+  # azurerm_network_interface_security_group_association.example will be created
+  + resource "azurerm_network_interface_security_group_association" "example" {
+      + id                        = (known after apply)
+      + network_interface_id      = (known after apply)
+      + network_security_group_id = (known after apply)
+    }
+
+  # azurerm_network_security_group.myterraformnsg will be created
+  + resource "azurerm_network_security_group" "myterraformnsg" {
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "myNetworkSecurityGroup"
+      + resource_group_name = (known after apply)
+      + security_rule       = [
+          + {
+              + access                                     = "Allow"
+              + description                                = ""
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "22"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "SSH"
+              + priority                                   = 1001
+              + protocol                                   = "Tcp"
+              + source_address_prefix                      = "*"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+            },
+        ]
+    }
+
+  # azurerm_public_ip.myterraformpublicip will be created
+  + resource "azurerm_public_ip" "myterraformpublicip" {
+      + allocation_method       = "Dynamic"
+      + availability_zone       = (known after apply)
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "eastus"
+      + name                    = "myPublicIP"
+      + resource_group_name     = (known after apply)
+      + sku                     = "Basic"
+      + sku_tier                = "Regional"
+      + zones                   = (known after apply)
+    }
+
+  # azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = (known after apply)
+    }
+
+  # azurerm_storage_account.mystorageaccount will be created
+  + resource "azurerm_storage_account" "mystorageaccount" {
+      + access_tier                       = (known after apply)
+      + account_kind                      = "StorageV2"
+      + account_replication_type          = "LRS"
+      + account_tier                      = "Standard"
+      + allow_blob_public_access          = false
+      + enable_https_traffic_only         = true
+      + id                                = (known after apply)
+      + infrastructure_encryption_enabled = false
+      + is_hns_enabled                    = false
+      + large_file_share_enabled          = (known after apply)
+      + location                          = "eastus"
+      + min_tls_version                   = "TLS1_0"
+      + name                              = (known after apply)
+      + nfsv3_enabled                     = false
+      + primary_access_key                = (sensitive value)
+      + primary_blob_connection_string    = (sensitive value)
+      + primary_blob_endpoint             = (known after apply)
+      + primary_blob_host                 = (known after apply)
+      + primary_connection_string         = (sensitive value)
+      + primary_dfs_endpoint              = (known after apply)
+      + primary_dfs_host                  = (known after apply)
+      + primary_file_endpoint             = (known after apply)
+      + primary_file_host                 = (known after apply)
+      + primary_location                  = (known after apply)
+      + primary_queue_endpoint            = (known after apply)
+      + primary_queue_host                = (known after apply)
+      + primary_table_endpoint            = (known after apply)
+      + primary_table_host                = (known after apply)
+      + primary_web_endpoint              = (known after apply)
+      + primary_web_host                  = (known after apply)
+      + queue_encryption_key_type         = "Service"
+      + resource_group_name               = (known after apply)
+      + secondary_access_key              = (sensitive value)
+      + secondary_blob_connection_string  = (sensitive value)
+      + secondary_blob_endpoint           = (known after apply)
+      + secondary_blob_host               = (known after apply)
+      + secondary_connection_string       = (sensitive value)
+      + secondary_dfs_endpoint            = (known after apply)
+      + secondary_dfs_host                = (known after apply)
+      + secondary_file_endpoint           = (known after apply)
+      + secondary_file_host               = (known after apply)
+      + secondary_location                = (known after apply)
+      + secondary_queue_endpoint          = (known after apply)
+      + secondary_queue_host              = (known after apply)
+      + secondary_table_endpoint          = (known after apply)
+      + secondary_table_host              = (known after apply)
+      + secondary_web_endpoint            = (known after apply)
+      + secondary_web_host                = (known after apply)
+      + shared_access_key_enabled         = true
+      + table_encryption_key_type         = "Service"
+    }
+
+  # azurerm_subnet.myterraformsubnet will be created
+  + resource "azurerm_subnet" "myterraformsubnet" {
+      + address_prefix                                 = (known after apply)
+      + address_prefixes                               = [
+          + "10.0.1.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = false
+      + enforce_private_link_service_network_policies  = false
+      + id                                             = (known after apply)
+      + name                                           = "mySubnet"
+      + resource_group_name                            = (known after apply)
+      + virtual_network_name                           = "myVnet"
+    }
+
+  # azurerm_virtual_network.myterraformnetwork will be created
+  + resource "azurerm_virtual_network" "myterraformnetwork" {
+      + address_space         = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers           = (known after apply)
+      + guid                  = (known after apply)
+      + id                    = (known after apply)
+      + location              = "eastus"
+      + name                  = "myVnet"
+      + resource_group_name   = (known after apply)
+      + subnet                = (known after apply)
+      + vm_protection_enabled = false
+    }
+
+  # random_id.randomId will be created
+  + resource "random_id" "randomId" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 8
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+      + keepers     = {
+          + "resource_group" = (known after apply)
+        }
+    }
+
+  # random_pet.rg-name will be created
+  + resource "random_pet" "rg-name" {
+      + id        = (known after apply)
+      + length    = 2
+      + prefix    = "rg"
+      + separator = "-"
+    }
+
+  # tls_private_key.example_ssh will be created
+  + resource "tls_private_key" "example_ssh" {
+      + algorithm                     = "RSA"
+      + ecdsa_curve                   = "P224"
+      + id                            = (known after apply)
+      + private_key_openssh           = (sensitive value)
+      + private_key_pem               = (sensitive value)
+      + private_key_pem_pkcs8         = (sensitive value)
+      + public_key_fingerprint_md5    = (known after apply)
+      + public_key_fingerprint_sha256 = (known after apply)
+      + public_key_openssh            = (known after apply)
+      + public_key_pem                = (known after apply)
+      + rsa_bits                      = 4096
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + public_ip_address   = (known after apply)
+  + resource_group_name = (known after apply)
+  + tls_private_key     = (sensitive value)
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: main.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "main.tfplan"
+
+
+❯ terraform apply "main.tfplan"
+random_pet.rg-name: Creating...
+random_pet.rg-name: Creation complete after 0s [id=rg-powerful-aardvark]
+tls_private_key.example_ssh: Creating...
+tls_private_key.example_ssh: Creation complete after 1s [id=621fdf4aa4e6a9998cccfbb124817bd0689e8961]
+azurerm_resource_group.rg: Creating...
+azurerm_resource_group.rg: Creation complete after 3s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark]
+azurerm_virtual_network.myterraformnetwork: Creating...
+azurerm_public_ip.myterraformpublicip: Creating...
+random_id.randomId: Creating...
+azurerm_network_security_group.myterraformnsg: Creating...
+random_id.randomId: Creation complete after 0s [id=Nsan-yceVRQ]
+azurerm_storage_account.mystorageaccount: Creating...
+azurerm_network_security_group.myterraformnsg: Creation complete after 6s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup]
+azurerm_public_ip.myterraformpublicip: Creation complete after 6s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/publicIPAddresses/myPublicIP]
+azurerm_virtual_network.myterraformnetwork: Creation complete after 9s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet]
+azurerm_subnet.myterraformsubnet: Creating...
+azurerm_storage_account.mystorageaccount: Still creating... [10s elapsed]
+azurerm_subnet.myterraformsubnet: Creation complete after 8s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet]
+azurerm_network_interface.myterraformnic: Creating...
+azurerm_storage_account.mystorageaccount: Still creating... [20s elapsed]
+azurerm_network_interface.myterraformnic: Creation complete after 5s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC]
+azurerm_network_interface_security_group_association.example: Creating...
+azurerm_network_interface_security_group_association.example: Creation complete after 3s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC|/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup]
+azurerm_storage_account.mystorageaccount: Creation complete after 29s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Storage/storageAccounts/diag36c6a7fb271e5514]
+azurerm_linux_virtual_machine.myterraformvm: Creating...
+azurerm_linux_virtual_machine.myterraformvm: Still creating... [10s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still creating... [20s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Creation complete after 27s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Compute/virtualMachines/myVM]
+
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+public_ip_address = "20.169.227.42"
+resource_group_name = "rg-powerful-aardvark"
+tls_private_key = <sensitive>
+
+❯ terraform output -raw tls_private_key > id_rsa
+
+❯ chmod 600 id_rsa
+
+❯ terraform output public_ip_address
+"20.169.227.42"
+
+❯ ssh -i id_rsa azureuser@20.169.227.42
+
+Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 5.4.0-1107-azure x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Wed May 17 08:26:47 UTC 2023
+
+  System load:  0.0               Processes:           104
+  Usage of /:   4.5% of 28.89GB   Users logged in:     0
+  Memory usage: 5%                IP address for eth0: 10.0.1.4
+  Swap usage:   0%
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+azureuser@myvm:~$ ls
+azureuser@myvm:~$ ls -la
+total 32
+drwxr-xr-x 5 azureuser azureuser 4096 May 17 08:26 .
+drwxr-xr-x 3 root      root      4096 May 17 08:16 ..
+-rw-r--r-- 1 azureuser azureuser  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 azureuser azureuser 3771 Apr  4  2018 .bashrc
+drwx------ 2 azureuser azureuser 4096 May 17 08:26 .cache
+drwx------ 3 azureuser azureuser 4096 May 17 08:26 .gnupg
+-rw-r--r-- 1 azureuser azureuser  807 Apr  4  2018 .profile
+drwx------ 2 azureuser azureuser 4096 May 17 08:16 .ssh
+
+azureuser@myvm:~$ exit
+logout
+Connection to 20.169.227.42 closed.
+
+❯ terraform plan -destroy -out main.tfplan
+random_pet.rg-name: Refreshing state... [id=rg-powerful-aardvark]
+tls_private_key.example_ssh: Refreshing state... [id=621fdf4aa4e6a9998cccfbb124817bd0689e8961]
+azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark]
+azurerm_virtual_network.myterraformnetwork: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet]
+random_id.randomId: Refreshing state... [id=Nsan-yceVRQ]
+azurerm_network_security_group.myterraformnsg: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup]
+azurerm_public_ip.myterraformpublicip: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/publicIPAddresses/myPublicIP]
+azurerm_storage_account.mystorageaccount: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Storage/storageAccounts/diag36c6a7fb271e5514]
+azurerm_subnet.myterraformsubnet: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet]
+azurerm_network_interface.myterraformnic: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC]
+azurerm_network_interface_security_group_association.example: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC|/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup]
+azurerm_linux_virtual_machine.myterraformvm: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Compute/virtualMachines/myVM]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # azurerm_linux_virtual_machine.myterraformvm will be destroyed
+  - resource "azurerm_linux_virtual_machine" "myterraformvm" {
+      - admin_username                  = "azureuser" -> null
+      - allow_extension_operations      = true -> null
+      - computer_name                   = "myvm" -> null
+      - disable_password_authentication = true -> null
+      - encryption_at_host_enabled      = false -> null
+      - extensions_time_budget          = "PT1H30M" -> null
+      - id                              = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Compute/virtualMachines/myVM" -> null
+      - location                        = "eastus" -> null
+      - max_bid_price                   = -1 -> null
+      - name                            = "myVM" -> null
+      - network_interface_ids           = [
+          - "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC",
+        ] -> null
+      - patch_mode                      = "ImageDefault" -> null
+      - platform_fault_domain           = -1 -> null
+      - priority                        = "Regular" -> null
+      - private_ip_address              = "10.0.1.4" -> null
+      - private_ip_addresses            = [
+          - "10.0.1.4",
+        ] -> null
+      - provision_vm_agent              = true -> null
+      - public_ip_address               = "20.169.227.42" -> null
+      - public_ip_addresses             = [
+          - "20.169.227.42",
+        ] -> null
+      - resource_group_name             = "rg-powerful-aardvark" -> null
+      - secure_boot_enabled             = false -> null
+      - size                            = "Standard_DS1_v2" -> null
+      - tags                            = {} -> null
+      - virtual_machine_id              = "dd3e2a5e-662e-4e42-9b72-cd3a5f5d53a3" -> null
+      - vtpm_enabled                    = false -> null
+
+      - admin_ssh_key {
+          - public_key = <<-EOT
+                ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+kHmYJyuzyq1xsEutUKfGZCA3Xo64MfJpjafWz1mNEpEWoAlfzSWt+qR03BmjEKNU+OrfdXl1IV+OunyNCcAsiMKI8oTv77aIOp9DJ6eQX60PEkiDeNunXU8G0oLX1Bgu+iH/jK11XF085uPYBooJvHsWU+YOJYlNCbXyE3aby30cuNs2Dpq2BJy864ETyh9q/Vtrq6KIig/Goi33eAYUIreyRS72sFBv1JgqOCuUdcZFAS3GX2uaPalcutsKtw2znFpIaOppPr1gulNT/8OR+LZ2YSW0+ltEvkqXK5vJQWl+oF5dMU7ErxkouTDDhPGfTE8JVVmXQIEs3v09nB3WeDH1LVQvUIc1fK49ox3EGVeKxpZyzia2ng1FCZGYOyzmeWhgTUsTxiVw0Q5rPmbml6CXOhqrEksoqbGor99hhfQ+rpy4vuLtr1mFfiNBGj7LbgZDLYnvKyDu1b1xQGIAta6gJgsBcbGTuF96FH5w79JzXAc0Hb0JKZBR+oc1v/8B6H6KEWhmyj3le4jlc3/3r6KwPXPgdC/L7yanK4sh0/OJO3UxDUuG8FLrScj0VNrHR0oId6ZffMpDRYzLW6akvAufhfBL07C9y/8bVQ/wsHI5bG+kyaxB+j+BM7vTHEpbVp7WCDSjWlNoRZ/En+lgEwxhka66oAxydirOIn75jQ==
+            EOT -> null
+          - username   = "azureuser" -> null
+        }
+
+      - boot_diagnostics {
+          - storage_account_uri = "https://diag36c6a7fb271e5514.blob.core.windows.net/" -> null
+        }
+
+      - os_disk {
+          - caching                   = "ReadWrite" -> null
+          - disk_size_gb              = 30 -> null
+          - name                      = "myOsDisk" -> null
+          - storage_account_type      = "Premium_LRS" -> null
+          - write_accelerator_enabled = false -> null
+        }
+
+      - source_image_reference {
+          - offer     = "UbuntuServer" -> null
+          - publisher = "Canonical" -> null
+          - sku       = "18.04-LTS" -> null
+          - version   = "latest" -> null
+        }
+    }
+
+  # azurerm_network_interface.myterraformnic will be destroyed
+  - resource "azurerm_network_interface" "myterraformnic" {
+      - applied_dns_servers           = [] -> null
+      - dns_servers                   = [] -> null
+      - enable_accelerated_networking = false -> null
+      - enable_ip_forwarding          = false -> null
+      - id                            = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC" -> null
+      - internal_domain_name_suffix   = "jtvuqrabnctudaru4wkmyhxsub.bx.internal.cloudapp.net" -> null
+      - location                      = "eastus" -> null
+      - mac_address                   = "60-45-BD-A8-BE-94" -> null
+      - name                          = "myNIC" -> null
+      - private_ip_address            = "10.0.1.4" -> null
+      - private_ip_addresses          = [
+          - "10.0.1.4",
+        ] -> null
+      - resource_group_name           = "rg-powerful-aardvark" -> null
+      - tags                          = {} -> null
+      - virtual_machine_id            = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Compute/virtualMachines/myVM" -> null
+
+      - ip_configuration {
+          - name                          = "myNicConfiguration" -> null
+          - primary                       = true -> null
+          - private_ip_address            = "10.0.1.4" -> null
+          - private_ip_address_allocation = "Dynamic" -> null
+          - private_ip_address_version    = "IPv4" -> null
+          - public_ip_address_id          = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/publicIPAddresses/myPublicIP" -> null
+          - subnet_id                     = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet" -> null
+        }
+    }
+
+  # azurerm_network_interface_security_group_association.example will be destroyed
+  - resource "azurerm_network_interface_security_group_association" "example" {
+      - id                        = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC|/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup" -> null
+      - network_interface_id      = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC" -> null
+      - network_security_group_id = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup" -> null
+    }
+
+  # azurerm_network_security_group.myterraformnsg will be destroyed
+  - resource "azurerm_network_security_group" "myterraformnsg" {
+      - id                  = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup" -> null
+      - location            = "eastus" -> null
+      - name                = "myNetworkSecurityGroup" -> null
+      - resource_group_name = "rg-powerful-aardvark" -> null
+      - security_rule       = [
+          - {
+              - access                                     = "Allow"
+              - description                                = ""
+              - destination_address_prefix                 = "*"
+              - destination_address_prefixes               = []
+              - destination_application_security_group_ids = []
+              - destination_port_range                     = "22"
+              - destination_port_ranges                    = []
+              - direction                                  = "Inbound"
+              - name                                       = "SSH"
+              - priority                                   = 1001
+              - protocol                                   = "Tcp"
+              - source_address_prefix                      = "*"
+              - source_address_prefixes                    = []
+              - source_application_security_group_ids      = []
+              - source_port_range                          = "*"
+              - source_port_ranges                         = []
+            },
+        ] -> null
+      - tags                = {} -> null
+    }
+
+  # azurerm_public_ip.myterraformpublicip will be destroyed
+  - resource "azurerm_public_ip" "myterraformpublicip" {
+      - allocation_method       = "Dynamic" -> null
+      - availability_zone       = "No-Zone" -> null
+      - id                      = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/publicIPAddresses/myPublicIP" -> null
+      - idle_timeout_in_minutes = 4 -> null
+      - ip_address              = "20.169.227.42" -> null
+      - ip_tags                 = {} -> null
+      - ip_version              = "IPv4" -> null
+      - location                = "eastus" -> null
+      - name                    = "myPublicIP" -> null
+      - resource_group_name     = "rg-powerful-aardvark" -> null
+      - sku                     = "Basic" -> null
+      - sku_tier                = "Regional" -> null
+      - tags                    = {} -> null
+      - zones                   = [] -> null
+    }
+
+  # azurerm_resource_group.rg will be destroyed
+  - resource "azurerm_resource_group" "rg" {
+      - id       = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark" -> null
+      - location = "eastus" -> null
+      - name     = "rg-powerful-aardvark" -> null
+      - tags     = {} -> null
+    }
+
+  # azurerm_storage_account.mystorageaccount will be destroyed
+  - resource "azurerm_storage_account" "mystorageaccount" {
+      - access_tier                       = "Hot" -> null
+      - account_kind                      = "StorageV2" -> null
+      - account_replication_type          = "LRS" -> null
+      - account_tier                      = "Standard" -> null
+      - allow_blob_public_access          = false -> null
+      - enable_https_traffic_only         = true -> null
+      - id                                = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Storage/storageAccounts/diag36c6a7fb271e5514" -> null
+      - infrastructure_encryption_enabled = false -> null
+      - is_hns_enabled                    = false -> null
+      - location                          = "eastus" -> null
+      - min_tls_version                   = "TLS1_0" -> null
+      - name                              = "diag36c6a7fb271e5514" -> null
+      - nfsv3_enabled                     = false -> null
+      - primary_access_key                = (sensitive value) -> null
+      - primary_blob_connection_string    = (sensitive value) -> null
+      - primary_blob_endpoint             = "https://diag36c6a7fb271e5514.blob.core.windows.net/" -> null
+      - primary_blob_host                 = "diag36c6a7fb271e5514.blob.core.windows.net" -> null
+      - primary_connection_string         = (sensitive value) -> null
+      - primary_dfs_endpoint              = "https://diag36c6a7fb271e5514.dfs.core.windows.net/" -> null
+      - primary_dfs_host                  = "diag36c6a7fb271e5514.dfs.core.windows.net" -> null
+      - primary_file_endpoint             = "https://diag36c6a7fb271e5514.file.core.windows.net/" -> null
+      - primary_file_host                 = "diag36c6a7fb271e5514.file.core.windows.net" -> null
+      - primary_location                  = "eastus" -> null
+      - primary_queue_endpoint            = "https://diag36c6a7fb271e5514.queue.core.windows.net/" -> null
+      - primary_queue_host                = "diag36c6a7fb271e5514.queue.core.windows.net" -> null
+      - primary_table_endpoint            = "https://diag36c6a7fb271e5514.table.core.windows.net/" -> null
+      - primary_table_host                = "diag36c6a7fb271e5514.table.core.windows.net" -> null
+      - primary_web_endpoint              = "https://diag36c6a7fb271e5514.z13.web.core.windows.net/" -> null
+      - primary_web_host                  = "diag36c6a7fb271e5514.z13.web.core.windows.net" -> null
+      - queue_encryption_key_type         = "Service" -> null
+      - resource_group_name               = "rg-powerful-aardvark" -> null
+      - secondary_access_key              = (sensitive value) -> null
+      - secondary_connection_string       = (sensitive value) -> null
+      - shared_access_key_enabled         = true -> null
+      - table_encryption_key_type         = "Service" -> null
+      - tags                              = {} -> null
+
+      - blob_properties {
+          - change_feed_enabled      = false -> null
+          - last_access_time_enabled = false -> null
+          - versioning_enabled       = false -> null
+        }
+
+      - network_rules {
+          - bypass                     = [
+              - "AzureServices",
+            ] -> null
+          - default_action             = "Allow" -> null
+          - ip_rules                   = [] -> null
+          - virtual_network_subnet_ids = [] -> null
+        }
+
+      - queue_properties {
+          - hour_metrics {
+              - enabled               = true -> null
+              - include_apis          = true -> null
+              - retention_policy_days = 7 -> null
+              - version               = "1.0" -> null
+            }
+          - logging {
+              - delete                = false -> null
+              - read                  = false -> null
+              - retention_policy_days = 0 -> null
+              - version               = "1.0" -> null
+              - write                 = false -> null
+            }
+          - minute_metrics {
+              - enabled               = false -> null
+              - include_apis          = false -> null
+              - retention_policy_days = 0 -> null
+              - version               = "1.0" -> null
+            }
+        }
+
+      - share_properties {
+          - retention_policy {
+              - days = 7 -> null
+            }
+        }
+    }
+
+  # azurerm_subnet.myterraformsubnet will be destroyed
+  - resource "azurerm_subnet" "myterraformsubnet" {
+      - address_prefix                                 = "10.0.1.0/24" -> null
+      - address_prefixes                               = [
+          - "10.0.1.0/24",
+        ] -> null
+      - enforce_private_link_endpoint_network_policies = false -> null
+      - enforce_private_link_service_network_policies  = false -> null
+      - id                                             = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet" -> null
+      - name                                           = "mySubnet" -> null
+      - resource_group_name                            = "rg-powerful-aardvark" -> null
+      - service_endpoint_policy_ids                    = [] -> null
+      - service_endpoints                              = [] -> null
+      - virtual_network_name                           = "myVnet" -> null
+    }
+
+  # azurerm_virtual_network.myterraformnetwork will be destroyed
+  - resource "azurerm_virtual_network" "myterraformnetwork" {
+      - address_space           = [
+          - "10.0.0.0/16",
+        ] -> null
+      - dns_servers             = [] -> null
+      - flow_timeout_in_minutes = 0 -> null
+      - guid                    = "4448eb4c-6801-41a7-8234-f594cc1ef2a1" -> null
+      - id                      = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet" -> null
+      - location                = "eastus" -> null
+      - name                    = "myVnet" -> null
+      - resource_group_name     = "rg-powerful-aardvark" -> null
+      - subnet                  = [
+          - {
+              - address_prefix = "10.0.1.0/24"
+              - id             = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
+              - name           = "mySubnet"
+              - security_group = ""
+            },
+        ] -> null
+      - tags                    = {} -> null
+      - vm_protection_enabled   = false -> null
+    }
+
+  # random_id.randomId will be destroyed
+  - resource "random_id" "randomId" {
+      - b64_std     = "Nsan+yceVRQ=" -> null
+      - b64_url     = "Nsan-yceVRQ" -> null
+      - byte_length = 8 -> null
+      - dec         = "3947026820571747604" -> null
+      - hex         = "36c6a7fb271e5514" -> null
+      - id          = "Nsan-yceVRQ" -> null
+      - keepers     = {
+          - "resource_group" = "rg-powerful-aardvark"
+        } -> null
+    }
+
+  # random_pet.rg-name will be destroyed
+  - resource "random_pet" "rg-name" {
+      - id        = "rg-powerful-aardvark" -> null
+      - length    = 2 -> null
+      - prefix    = "rg" -> null
+      - separator = "-" -> null
+    }
+
+  # tls_private_key.example_ssh will be destroyed
+  - resource "tls_private_key" "example_ssh" {
+      - algorithm                     = "RSA" -> null
+      - ecdsa_curve                   = "P224" -> null
+      - id                            = "621fdf4aa4e6a9998cccfbb124817bd0689e8961" -> null
+      - private_key_openssh           = (sensitive value) -> null
+      - private_key_pem               = (sensitive value) -> null
+      - private_key_pem_pkcs8         = (sensitive value) -> null
+      - public_key_fingerprint_md5    = "4c:63:92:e6:9c:0f:85:f2:62:68:af:40:2f:ab:5e:55" -> null
+      - public_key_fingerprint_sha256 = "SHA256:sCCCfjhgdcFXn5DdKpoSLQ8hSP27zP+dSI/prluo8aU" -> null
+      - public_key_openssh            = <<-EOT
+            ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+kHmYJyuzyq1xsEutUKfGZCA3Xo64MfJpjafWz1mNEpEWoAlfzSWt+qR03BmjEKNU+OrfdXl1IV+OunyNCcAsiMKI8oTv77aIOp9DJ6eQX60PEkiDeNunXU8G0oLX1Bgu+iH/jK11XF085uPYBooJvHsWU+YOJYlNCbXyE3aby30cuNs2Dpq2BJy864ETyh9q/Vtrq6KIig/Goi33eAYUIreyRS72sFBv1JgqOCuUdcZFAS3GX2uaPalcutsKtw2znFpIaOppPr1gulNT/8OR+LZ2YSW0+ltEvkqXK5vJQWl+oF5dMU7ErxkouTDDhPGfTE8JVVmXQIEs3v09nB3WeDH1LVQvUIc1fK49ox3EGVeKxpZyzia2ng1FCZGYOyzmeWhgTUsTxiVw0Q5rPmbml6CXOhqrEksoqbGor99hhfQ+rpy4vuLtr1mFfiNBGj7LbgZDLYnvKyDu1b1xQGIAta6gJgsBcbGTuF96FH5w79JzXAc0Hb0JKZBR+oc1v/8B6H6KEWhmyj3le4jlc3/3r6KwPXPgdC/L7yanK4sh0/OJO3UxDUuG8FLrScj0VNrHR0oId6ZffMpDRYzLW6akvAufhfBL07C9y/8bVQ/wsHI5bG+kyaxB+j+BM7vTHEpbVp7WCDSjWlNoRZ/En+lgEwxhka66oAxydirOIn75jQ==
+        EOT -> null
+      - public_key_pem                = <<-EOT
+            -----BEGIN PUBLIC KEY-----
+            MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvpB5mCcrs8qtcbBLrVCn
+            xmQgN16OuDHyaY2n1s9ZjRKRFqAJX80lrfqkdNwZoxCjVPjq33V5dSFfjrp8jQnA
+            LIjCiPKE7++blablabla+tDxJIg3jbp11PBtKC19QYLvoh/4ytdVxdPObj2AaK
+            Cbx7FlPmDiWJTQm18hN2m8t9HLjbNg6atgScvOuBE8ofav1ba6uiiIoPxqIt93gG
+            FCK3skUu9rBQb9SYKjgrlHXGRQEtxl9rmj2pXLrbCrcNs5xaSGjqaT69YLpTU//D
+            kfi2dmEltPpbRL5KlyubyUFpfqBeXTFOxK8ZKLkww4Txn0xPCVVZl0CBLN79PZwd
+            1ngx9S1UL1CHNXyuPaMdxBlXisaWcs4mtp4NRQmRmDss5nloYE1LE8YlcNEOaz5m
+            5peglzoaqxJLKKmxqK/fYYX0Pq6cuL7i7a9ZhX4jQRo+y24GQy2J7ysg7tW9cUBi
+            ALWuoCYLAXGxk7hfehR+cO/Sc1wHNB29CSmQUfqHNb//Aeh+ihFoZso95XuI5XN/
+            96+isD1z4HQvy+8mpyuLIdPziTt1MQ1LhvBS60nI9FTax0dKCHemX3zKQ0WMy1um
+            pLwLn4XwS9Owvcv/G1UP8LByOWxvpMmsQfo/gTO70xxKW1ae1gg0o1pTaEWfxJ/p
+            YBMMYZGuuqAMcnYqziJ++blablabla==
+            -----END PUBLIC KEY-----
+        EOT -> null
+      - rsa_bits                      = 4096 -> null
+    }
+
+Plan: 0 to add, 0 to change, 12 to destroy.
+
+Changes to Outputs:
+  - public_ip_address   = "20.169.227.42" -> null
+  - resource_group_name = "rg-powerful-aardvark" -> null
+  - tls_private_key     = (sensitive value) -> null
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: main.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "main.tfplan"
+
+
+❯ terraform apply "main.tfplan"
+azurerm_network_interface_security_group_association.example: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkInterfaces/myNIC|/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Network/networkSecurityGroups/myNetworkSecurityGroup]
+azurerm_linux_virtual_machine.myterraformvm: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Compute/virtualMachines/myVM]
+azurerm_network_interface_security_group_association.example: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...kSecurityGroups/myNetworkSecurityGroup, 10s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...Microsoft.Compute/virtualMachines/myVM, 10s elapsed]
+azurerm_network_interface_security_group_association.example: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...kSecurityGroups/myNetworkSecurityGroup, 20s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...Microsoft.Compute/virtualMachines/myVM, 20s elapsed]
+azurerm_network_interface_security_group_association.example: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...kSecurityGroups/myNetworkSecurityGroup, 30s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...Microsoft.Compute/virtualMachines/myVM, 30s elapsed]
+azurerm_network_interface_security_group_association.example: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...kSecurityGroups/myNetworkSecurityGroup, 40s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...Microsoft.Compute/virtualMachines/myVM, 40s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...Microsoft.Compute/virtualMachines/myVM, 50s elapsed]
+azurerm_linux_virtual_machine.myterraformvm: Destruction complete after 52s
+tls_private_key.example_ssh: Destroying... [id=621fdf4aa4e6a9998cccfbb124817bd0689e8961]
+tls_private_key.example_ssh: Destruction complete after 0s
+azurerm_storage_account.mystorageaccount: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/rg-powerful-aardvark/providers/Microsoft.Storage/storageAccounts/diag36c6a7fb271e5514]
+azurerm_storage_account.mystorageaccount: Destruction complete after 6s
+random_id.randomId: Destroying... [id=Nsan-yceVRQ]
+random_id.randomId: Destruction complete after 0s
+╷
+│ Error: waiting for update of Network Interface: (Name "myNIC" / Resource Group "rg-powerful-aardvark"): Code="InternalServerError" Message="An error occurred." Details=[]
+│ 
+│ 
+
+
+❯ terraform apply "main.tfplan"
+╷
+│ Error: Saved plan is stale
+│ 
+│ The given plan file can no longer be applied because the state was changed by another operation after the plan was created.
+╵
