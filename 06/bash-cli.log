@@ -1,0 +1,619 @@
+❯ terraform init -upgrade
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding hashicorp/azurerm versions matching "~> 3.0"...
+- Finding hashicorp/random versions matching "~> 3.0"...
+- Installing hashicorp/azurerm v3.57.0...
+- Installed hashicorp/azurerm v3.57.0 (signed by HashiCorp)
+- Installing hashicorp/random v3.5.1...
+- Installed hashicorp/random v3.5.1 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+❯ terraform plan -out main.tfplan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_mysql_flexible_database.main will be created
+  + resource "azurerm_mysql_flexible_database" "main" {
+      + charset             = "utf8mb4"
+      + collation           = "utf8mb4_unicode_ci"
+      + id                  = (known after apply)
+      + name                = (known after apply)
+      + resource_group_name = (known after apply)
+      + server_name         = (known after apply)
+    }
+
+  # azurerm_mysql_flexible_server.default will be created
+  + resource "azurerm_mysql_flexible_server" "default" {
+      + administrator_login           = (known after apply)
+      + administrator_password        = (sensitive value)
+      + backup_retention_days         = 7
+      + delegated_subnet_id           = (known after apply)
+      + fqdn                          = (known after apply)
+      + geo_redundant_backup_enabled  = false
+      + id                            = (known after apply)
+      + location                      = "eastus"
+      + name                          = (known after apply)
+      + private_dns_zone_id           = (known after apply)
+      + public_network_access_enabled = (known after apply)
+      + replica_capacity              = (known after apply)
+      + replication_role              = (known after apply)
+      + resource_group_name           = (known after apply)
+      + sku_name                      = "GP_Standard_D2ds_v4"
+      + version                       = "8.0.21"
+      + zone                          = "1"
+
+      + high_availability {
+          + mode                      = "ZoneRedundant"
+          + standby_availability_zone = "2"
+        }
+
+      + maintenance_window {
+          + day_of_week  = 0
+          + start_hour   = 8
+          + start_minute = 0
+        }
+
+      + storage {
+          + auto_grow_enabled = true
+          + iops              = 360
+          + size_gb           = 20
+        }
+    }
+
+  # azurerm_private_dns_zone.default will be created
+  + resource "azurerm_private_dns_zone" "default" {
+      + id                                                    = (known after apply)
+      + max_number_of_record_sets                             = (known after apply)
+      + max_number_of_virtual_network_links                   = (known after apply)
+      + max_number_of_virtual_network_links_with_registration = (known after apply)
+      + name                                                  = (known after apply)
+      + number_of_record_sets                                 = (known after apply)
+      + resource_group_name                                   = (known after apply)
+    }
+
+  # azurerm_private_dns_zone_virtual_network_link.default will be created
+  + resource "azurerm_private_dns_zone_virtual_network_link" "default" {
+      + id                    = (known after apply)
+      + name                  = (known after apply)
+      + private_dns_zone_name = (known after apply)
+      + registration_enabled  = false
+      + resource_group_name   = (known after apply)
+      + virtual_network_id    = (known after apply)
+    }
+
+  # azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = (known after apply)
+    }
+
+  # azurerm_subnet.default will be created
+  + resource "azurerm_subnet" "default" {
+      + address_prefixes                               = [
+          + "10.0.2.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = (known after apply)
+      + service_endpoints                              = [
+          + "Microsoft.Storage",
+        ]
+      + virtual_network_name                           = (known after apply)
+
+      + delegation {
+          + name = "fs"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/join/action",
+                ]
+              + name    = "Microsoft.DBforMySQL/flexibleServers"
+            }
+        }
+    }
+
+  # azurerm_virtual_network.default will be created
+  + resource "azurerm_virtual_network" "default" {
+      + address_space       = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers         = (known after apply)
+      + guid                = (known after apply)
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = (known after apply)
+      + resource_group_name = (known after apply)
+      + subnet              = (known after apply)
+    }
+
+  # random_password.password will be created
+  + resource "random_password" "password" {
+      + bcrypt_hash      = (sensitive value)
+      + id               = (known after apply)
+      + length           = 8
+      + lower            = true
+      + min_lower        = 1
+      + min_numeric      = 1
+      + min_special      = 1
+      + min_upper        = 1
+      + number           = true
+      + numeric          = true
+      + override_special = "_"
+      + result           = (sensitive value)
+      + special          = true
+      + upper            = true
+    }
+
+  # random_pet.rg_name will be created
+  + resource "random_pet" "rg_name" {
+      + id        = (known after apply)
+      + length    = 2
+      + prefix    = "mysql-fs-db-rg"
+      + separator = "-"
+    }
+
+  # random_string.name will be created
+  + resource "random_string" "name" {
+      + id          = (known after apply)
+      + length      = 8
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = false
+      + numeric     = false
+      + result      = (known after apply)
+      + special     = false
+      + upper       = false
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + admin_login                         = (known after apply)
+  + admin_password                      = (sensitive value)
+  + azurerm_mysql_flexible_server       = (known after apply)
+  + mysql_flexible_server_database_name = (known after apply)
+  + resource_group_name                 = (known after apply)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: main.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "main.tfplan"
+
+
+❯ terraform apply main.tfplan
+random_pet.rg_name: Creating...
+random_password.password: Creating...
+random_string.name: Creating...
+random_pet.rg_name: Creation complete after 0s [id=mysql-fs-db-rg-novel-flamingo]
+random_string.name: Creation complete after 0s [id=qvgaccsd]
+random_password.password: Creation complete after 0s [id=none]
+azurerm_resource_group.rg: Creating...
+azurerm_resource_group.rg: Creation complete after 3s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo]
+azurerm_virtual_network.default: Creating...
+azurerm_private_dns_zone.default: Creating...
+azurerm_virtual_network.default: Creation complete after 9s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd]
+azurerm_subnet.default: Creating...
+azurerm_private_dns_zone.default: Still creating... [10s elapsed]
+azurerm_subnet.default: Creation complete after 8s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd]
+azurerm_private_dns_zone.default: Still creating... [20s elapsed]
+azurerm_private_dns_zone.default: Still creating... [30s elapsed]
+azurerm_private_dns_zone.default: Creation complete after 36s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com]
+azurerm_private_dns_zone_virtual_network_link.default: Creating...
+azurerm_private_dns_zone_virtual_network_link.default: Still creating... [10s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still creating... [20s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still creating... [30s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Creation complete after 36s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com/virtualNetworkLinks/mysqlfsVnetZoneqvgaccsd.com]
+azurerm_mysql_flexible_server.default: Creating...
+azurerm_mysql_flexible_server.default: Still creating... [10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [1m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [2m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [3m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [4m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [5m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [6m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [7m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [8m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [9m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m20s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m30s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m40s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [10m50s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [11m0s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [11m10s elapsed]
+azurerm_mysql_flexible_server.default: Still creating... [11m20s elapsed]
+azurerm_mysql_flexible_server.default: Creation complete after 11m20s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd]
+azurerm_mysql_flexible_database.main: Creating...
+azurerm_mysql_flexible_database.main: Still creating... [10s elapsed]
+azurerm_mysql_flexible_database.main: Creation complete after 19s [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd/databases/mysqlfsdb_qvgaccsd]
+
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+admin_login = "qvgaccsd"
+admin_password = <sensitive>
+azurerm_mysql_flexible_server = "mysqlfs-qvgaccsd"
+mysql_flexible_server_database_name = "mysqlfsdb_qvgaccsd"
+resource_group_name = "mysql-fs-db-rg-novel-flamingo"
+
+
+❯ az mysql flexible-server db show \
+    --resource-group mysql-fs-db-rg-novel-flamingo \
+    --server-name mysqlfs-qvgaccsd \
+    --database-name mysqlfsdb_qvgaccsd
+{
+  "charset": "utf8mb4",
+  "collation": "utf8mb4_unicode_ci",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd/databases/mysqlfsdb_qvgaccsd",
+  "name": "mysqlfsdb_qvgaccsd",
+  "resourceGroup": "mysql-fs-db-rg-novel-flamingo",
+  "systemData": null,
+  "type": "Microsoft.DBforMySQL/flexibleServers/databases"
+}
+
+
+❯ terraform plan -destroy -out main.destroy.tfplan
+random_string.name: Refreshing state... [id=qvgaccsd]
+random_pet.rg_name: Refreshing state... [id=mysql-fs-db-rg-novel-flamingo]
+random_password.password: Refreshing state... [id=none]
+azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo]
+azurerm_virtual_network.default: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd]
+azurerm_private_dns_zone.default: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com]
+azurerm_subnet.default: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd]
+azurerm_private_dns_zone_virtual_network_link.default: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com/virtualNetworkLinks/mysqlfsVnetZoneqvgaccsd.com]
+azurerm_mysql_flexible_server.default: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd]
+azurerm_mysql_flexible_database.main: Refreshing state... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd/databases/mysqlfsdb_qvgaccsd]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # azurerm_mysql_flexible_database.main will be destroyed
+  - resource "azurerm_mysql_flexible_database" "main" {
+      - charset             = "utf8mb4" -> null
+      - collation           = "utf8mb4_unicode_ci" -> null
+      - id                  = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd/databases/mysqlfsdb_qvgaccsd" -> null
+      - name                = "mysqlfsdb_qvgaccsd" -> null
+      - resource_group_name = "mysql-fs-db-rg-novel-flamingo" -> null
+      - server_name         = "mysqlfs-qvgaccsd" -> null
+    }
+
+  # azurerm_mysql_flexible_server.default will be destroyed
+  - resource "azurerm_mysql_flexible_server" "default" {
+      - administrator_login           = "qvgaccsd" -> null
+      - administrator_password        = (sensitive value) -> null
+      - backup_retention_days         = 7 -> null
+      - delegated_subnet_id           = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd" -> null
+      - fqdn                          = "mysqlfs-qvgaccsd.mysql.database.azure.com" -> null
+      - geo_redundant_backup_enabled  = false -> null
+      - id                            = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd" -> null
+      - location                      = "eastus" -> null
+      - name                          = "mysqlfs-qvgaccsd" -> null
+      - private_dns_zone_id           = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com" -> null
+      - public_network_access_enabled = false -> null
+      - replica_capacity              = 10 -> null
+      - replication_role              = "None" -> null
+      - resource_group_name           = "mysql-fs-db-rg-novel-flamingo" -> null
+      - sku_name                      = "GP_Standard_D2ds_v4" -> null
+      - tags                          = {} -> null
+      - version                       = "8.0.21" -> null
+      - zone                          = "1" -> null
+
+      - high_availability {
+          - mode                      = "ZoneRedundant" -> null
+          - standby_availability_zone = "2" -> null
+        }
+
+      - maintenance_window {
+          - day_of_week  = 0 -> null
+          - start_hour   = 8 -> null
+          - start_minute = 0 -> null
+        }
+
+      - storage {
+          - auto_grow_enabled = true -> null
+          - iops              = 360 -> null
+          - size_gb           = 20 -> null
+        }
+    }
+
+  # azurerm_private_dns_zone.default will be destroyed
+  - resource "azurerm_private_dns_zone" "default" {
+      - id                                                    = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com" -> null
+      - max_number_of_record_sets                             = 25000 -> null
+      - max_number_of_virtual_network_links                   = 1000 -> null
+      - max_number_of_virtual_network_links_with_registration = 100 -> null
+      - name                                                  = "qvgaccsd.mysql.database.azure.com" -> null
+      - number_of_record_sets                                 = 2 -> null
+      - resource_group_name                                   = "mysql-fs-db-rg-novel-flamingo" -> null
+      - tags                                                  = {} -> null
+
+      - soa_record {
+          - email         = "azureprivatedns-host.microsoft.com" -> null
+          - expire_time   = 2419200 -> null
+          - fqdn          = "qvgaccsd.mysql.database.azure.com." -> null
+          - host_name     = "azureprivatedns.net" -> null
+          - minimum_ttl   = 10 -> null
+          - refresh_time  = 3600 -> null
+          - retry_time    = 300 -> null
+          - serial_number = 1 -> null
+          - tags          = {} -> null
+          - ttl           = 3600 -> null
+        }
+    }
+
+  # azurerm_private_dns_zone_virtual_network_link.default will be destroyed
+  - resource "azurerm_private_dns_zone_virtual_network_link" "default" {
+      - id                    = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com/virtualNetworkLinks/mysqlfsVnetZoneqvgaccsd.com" -> null
+      - name                  = "mysqlfsVnetZoneqvgaccsd.com" -> null
+      - private_dns_zone_name = "qvgaccsd.mysql.database.azure.com" -> null
+      - registration_enabled  = false -> null
+      - resource_group_name   = "mysql-fs-db-rg-novel-flamingo" -> null
+      - tags                  = {} -> null
+      - virtual_network_id    = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd" -> null
+    }
+
+  # azurerm_resource_group.rg will be destroyed
+  - resource "azurerm_resource_group" "rg" {
+      - id       = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo" -> null
+      - location = "eastus" -> null
+      - name     = "mysql-fs-db-rg-novel-flamingo" -> null
+      - tags     = {} -> null
+    }
+
+  # azurerm_subnet.default will be destroyed
+  - resource "azurerm_subnet" "default" {
+      - address_prefixes                               = [
+          - "10.0.2.0/24",
+        ] -> null
+      - enforce_private_link_endpoint_network_policies = false -> null
+      - enforce_private_link_service_network_policies  = false -> null
+      - id                                             = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd" -> null
+      - name                                           = "subnet-qvgaccsd" -> null
+      - private_endpoint_network_policies_enabled      = true -> null
+      - private_link_service_network_policies_enabled  = true -> null
+      - resource_group_name                            = "mysql-fs-db-rg-novel-flamingo" -> null
+      - service_endpoint_policy_ids                    = [] -> null
+      - service_endpoints                              = [
+          - "Microsoft.Storage",
+        ] -> null
+      - virtual_network_name                           = "vnet-qvgaccsd" -> null
+
+      - delegation {
+          - name = "fs" -> null
+
+          - service_delegation {
+              - actions = [
+                  - "Microsoft.Network/virtualNetworks/subnets/join/action",
+                ] -> null
+              - name    = "Microsoft.DBforMySQL/flexibleServers" -> null
+            }
+        }
+    }
+
+  # azurerm_virtual_network.default will be destroyed
+  - resource "azurerm_virtual_network" "default" {
+      - address_space           = [
+          - "10.0.0.0/16",
+        ] -> null
+      - dns_servers             = [] -> null
+      - flow_timeout_in_minutes = 0 -> null
+      - guid                    = "d637f4c4-447a-43d7-acba-11aa6bac1598" -> null
+      - id                      = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd" -> null
+      - location                = "eastus" -> null
+      - name                    = "vnet-qvgaccsd" -> null
+      - resource_group_name     = "mysql-fs-db-rg-novel-flamingo" -> null
+      - subnet                  = [
+          - {
+              - address_prefix = "10.0.2.0/24"
+              - id             = "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd"
+              - name           = "subnet-qvgaccsd"
+              - security_group = ""
+            },
+        ] -> null
+      - tags                    = {} -> null
+    }
+
+  # random_password.password will be destroyed
+  - resource "random_password" "password" {
+      - bcrypt_hash      = (sensitive value) -> null
+      - id               = "none" -> null
+      - length           = 8 -> null
+      - lower            = true -> null
+      - min_lower        = 1 -> null
+      - min_numeric      = 1 -> null
+      - min_special      = 1 -> null
+      - min_upper        = 1 -> null
+      - number           = true -> null
+      - numeric          = true -> null
+      - override_special = "_" -> null
+      - result           = (sensitive value) -> null
+      - special          = true -> null
+      - upper            = true -> null
+    }
+
+  # random_pet.rg_name will be destroyed
+  - resource "random_pet" "rg_name" {
+      - id        = "mysql-fs-db-rg-novel-flamingo" -> null
+      - length    = 2 -> null
+      - prefix    = "mysql-fs-db-rg" -> null
+      - separator = "-" -> null
+    }
+
+  # random_string.name will be destroyed
+  - resource "random_string" "name" {
+      - id          = "qvgaccsd" -> null
+      - length      = 8 -> null
+      - lower       = true -> null
+      - min_lower   = 0 -> null
+      - min_numeric = 0 -> null
+      - min_special = 0 -> null
+      - min_upper   = 0 -> null
+      - number      = false -> null
+      - numeric     = false -> null
+      - result      = "qvgaccsd" -> null
+      - special     = false -> null
+      - upper       = false -> null
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Changes to Outputs:
+  - admin_login                         = "qvgaccsd" -> null
+  - admin_password                      = (sensitive value) -> null
+  - azurerm_mysql_flexible_server       = "mysqlfs-qvgaccsd" -> null
+  - mysql_flexible_server_database_name = "mysqlfsdb_qvgaccsd" -> null
+  - resource_group_name                 = "mysql-fs-db-rg-novel-flamingo" -> null
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: main.destroy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "main.destroy.tfplan"
+
+
+❯ terraform apply "main.destroy.tfplan"
+azurerm_mysql_flexible_database.main: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd/databases/mysqlfsdb_qvgaccsd]
+azurerm_mysql_flexible_database.main: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...-qvgaccsd/databases/mysqlfsdb_qvgaccsd, 10s elapsed]
+azurerm_mysql_flexible_database.main: Destruction complete after 17s
+azurerm_mysql_flexible_server.default: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.DBforMySQL/flexibleServers/mysqlfs-qvgaccsd]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 10s elapsed]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 20s elapsed]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 30s elapsed]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 40s elapsed]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 50s elapsed]
+azurerm_mysql_flexible_server.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...MySQL/flexibleServers/mysqlfs-qvgaccsd, 1m0s elapsed]
+azurerm_mysql_flexible_server.default: Destruction complete after 1m4s
+azurerm_private_dns_zone_virtual_network_link.default: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com/virtualNetworkLinks/mysqlfsVnetZoneqvgaccsd.com]
+azurerm_subnet.default: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd/subnets/subnet-qvgaccsd]
+random_password.password: Destroying... [id=none]
+random_password.password: Destruction complete after 0s
+azurerm_subnet.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-.../vnet-qvgaccsd/subnets/subnet-qvgaccsd, 10s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 10s elapsed]
+azurerm_subnet.default: Destruction complete after 12s
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 20s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 30s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 40s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 50s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m0s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m10s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m20s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m30s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m40s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 1m50s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 2m0s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 2m10s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 2m20s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...tworkLinks/mysqlfsVnetZoneqvgaccsd.com, 2m30s elapsed]
+azurerm_private_dns_zone_virtual_network_link.default: Destruction complete after 2m35s
+azurerm_virtual_network.default: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/virtualNetworks/vnet-qvgaccsd]
+azurerm_private_dns_zone.default: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo/providers/Microsoft.Network/privateDnsZones/qvgaccsd.mysql.database.azure.com]
+azurerm_private_dns_zone.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ones/qvgaccsd.mysql.database.azure.com, 10s elapsed]
+azurerm_virtual_network.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-....Network/virtualNetworks/vnet-qvgaccsd, 10s elapsed]
+azurerm_virtual_network.default: Destruction complete after 12s
+azurerm_private_dns_zone.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ones/qvgaccsd.mysql.database.azure.com, 20s elapsed]
+azurerm_private_dns_zone.default: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ones/qvgaccsd.mysql.database.azure.com, 30s elapsed]
+azurerm_private_dns_zone.default: Destruction complete after 32s
+azurerm_resource_group.rg: Destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/mysql-fs-db-rg-novel-flamingo]
+random_string.name: Destroying... [id=qvgaccsd]
+random_string.name: Destruction complete after 0s
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 10s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 20s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 30s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 40s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 50s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m0s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m10s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m20s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m30s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m40s elapsed]
+azurerm_resource_group.rg: Still destroying... [id=/subscriptions/43aa0595-8fda-44a4-b227-...ceGroups/mysql-fs-db-rg-novel-flamingo, 1m50s elapsed]
+azurerm_resource_group.rg: Destruction complete after 1m51s
+random_pet.rg_name: Destroying... [id=mysql-fs-db-rg-novel-flamingo]
+random_pet.rg_name: Destruction complete after 0s
+
+Apply complete! Resources: 0 added, 0 changed, 10 destroyed.
