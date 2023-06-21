@@ -1,0 +1,156 @@
+Azure Container Instances
+1. Show files 
+cat Dockerfile 
+FROM mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine
+COPY index.html /usr/share/nginx/html
+
+cat index.html 
+<html>
+<body>
+<h1>NGINX Container for Capgemini Azure Course</h1>
+</body>
+</html>
+
+2. Create resource group
+az group create --name mxnResourceGroup --location westus2
+
+3. Create a container registry and allow anonymous pull
+az acr create --resource-group mxnResourceGroup \
+  --name mxn06062023 --sku Standard 
+
+az acr delete --resource-group mxnResourceGroup \
+  --name mxn06062023
+
+az acr update --name mxn06062023 --anonymous-pull-enabled
+
+4. Build and push image from a Dockerfile
+az acr build --image mxnsample:v1 \
+  --registry mxn06062023 \
+  --file Dockerfile . 
+  
+change index.html and build v2 
+az acr build --image mxnsample:v2 \
+  --registry mxn06062023 \
+  --file Dockerfile . 
+
+5. Create and run the container
+az container create --resource-group mxnResourceGroup --name mycontainer \
+--image mxn06062023.azurecr.io/mxnsample:v1 --dns-name-label mxn-demo --ports 80
+
+az container create --resource-group mxnResourceGroup --name mycontainer \
+--image mxn06062023.azurecr.io/mxnsample:v1 --dns-name-label mxn-demo --ports 80 \
+--registry-login-server mxn06062023.azurecr.io \
+--registry-password anonymous \
+--registry-username anonymous
+
+6. Get info 
+az container show --resource-group mxnResourceGroup --name mycontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+
+7. See logs 
+az container logs --resource-group mxnResourceGroup --name mycontainer
+
+8. Attach
+az container attach --resource-group mxnResourceGroup --name mycontainer
+
+9. Delete
+az container delete --resource-group mxnResourceGroup --name mycontainer
+
+
+
+
+AKS
+1. Create VNET and subnets
+
+az network vnet create \
+    --resource-group mxnResourceGroup \
+    --name myVnet \
+    --address-prefixes 10.0.0.0/8 \
+    --subnet-name myAKSSubnet \
+    --subnet-prefix 10.240.0.0/16
+
+az network vnet subnet create \
+    --resource-group mxnResourceGroup \
+    --vnet-name myVnet \
+    --name myVirtualNodeSubnet \
+    --address-prefixes 10.241.0.0/16
+
+az network vnet subnet show --resource-group mxnResourceGroup --vnet-name myVnet --name myAKSSubnet --query id -o tsv
+
+2. Create AKS cluster 
+
+az aks create \
+    --resource-group mxnResourceGroup \
+    --name myAKSCluster \
+    --node-count 1 \
+    --network-plugin azure \
+    --generate-ssh-keys \
+    --node-vm-size Standard_B2s \
+    --vnet-subnet-id /subscriptions/3dbc3df3-12fc-4af3-8caf-1c0cc579cb4f/resourceGroups/mxnResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/myAKSSubnet
+3. Enable virtual kubelet
+
+az aks enable-addons \
+    --resource-group mxnResourceGroup \
+    --name myAKSCluster \
+    --addons virtual-node \
+    --subnet-name myVirtualNodeSubnet
+
+4. Connect kubelet to cluster
+az aks get-credentials --resource-group mxnResourceGroup --name myAKSCluster
+
+	
+5. Create deployment
+
+kubectl create deployment my-dep --image=mxn06062023.azurecr.io/mxnsample:v1 --replicas=2
+
+6. Expose deployment
+
+kubectl expose deployment my-dep --type=LoadBalancer --port=80 --target-port=80
+kubectl get services
+
+7. See deployment history
+kubectl rollout history deployment/my-dep
+
+8. Update image
+kubectl set image deployment/my-dep mxnsample=mxn06062023.azurecr.io/mxnsample:v2 --record
+
+9. Rollback
+kubectl rollout undo deployment/my-dep
+
+10. Put a pod on virtual-node
+kubectl apply -f virtual-node.yaml
+
+kubectl get pods -o wide
+
+
+az group delete --name mxnResourceGroup
+
+
+maksym_nadtochyi@Azure:~$ cat virtual-node.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aci-helloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aci-helloworld
+  template:
+    metadata:
+      labels:
+        app: aci-helloworld
+    spec:
+      containers:
+      - name: aci-helloworld
+        image: mcr.microsoft.com/azuredocs/aci-helloworld
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule
