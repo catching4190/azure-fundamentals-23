@@ -1,0 +1,340 @@
+PS /Users/vglazhevskyi/Learning/azure-fundamentals-23/09> ./container-instance.ps1
+1. Create resource group
+{
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-22249219",
+  "location": "westus2",
+  "managedBy": null,
+  "name": "resourcegroup-22249219",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+2. Create a container registry and allow anonymous pull
+{
+  "adminUserEnabled": false,
+  "anonymousPullEnabled": false,
+  "creationDate": "2023-06-21T23:07:02.795750+00:00",
+  "dataEndpointEnabled": false,
+  "dataEndpointHostNames": [],
+  "encryption": {
+    "keyVaultProperties": null,
+    "status": "disabled"
+  },
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-22249219/providers/Microsoft.ContainerRegistry/registries/whoahub",
+  "identity": null,
+  "location": "westus2",
+  "loginServer": "whoahub.azurecr.io",
+  "name": "whoahub",
+  "networkRuleBypassOptions": "AzureServices",
+  "networkRuleSet": null,
+  "policies": {
+    "azureAdAuthenticationAsArmPolicy": {
+      "status": "enabled"
+    },
+    "exportPolicy": {
+      "status": "enabled"
+    },
+    "quarantinePolicy": {
+      "status": "disabled"
+    },
+    "retentionPolicy": {
+      "days": 7,
+      "lastUpdatedTime": "2023-06-21T23:07:10.520186+00:00",
+      "status": "disabled"
+    },
+    "softDeletePolicy": {
+      "lastUpdatedTime": "2023-06-21T23:07:10.520186+00:00",
+      "retentionDays": 7,
+      "status": "disabled"
+    },
+    "trustPolicy": {
+      "status": "disabled",
+      "type": "Notary"
+    }
+  },
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "resourcegroup-22249219",
+  "sku": {
+    "name": "Standard",
+    "tier": "Standard"
+  },
+  "status": null,
+  "systemData": {
+    "createdAt": "2023-06-21T23:07:02.795750+00:00",
+    "createdBy": "glajik@live.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2023-06-21T23:07:02.795750+00:00",
+    "lastModifiedBy": "glajik@live.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": {},
+  "type": "Microsoft.ContainerRegistry/registries",
+  "zoneRedundancy": "Disabled"
+}
+{
+  "adminUserEnabled": false,
+  "anonymousPullEnabled": true,
+  "creationDate": "2023-06-21T23:07:02.795750+00:00",
+  "dataEndpointEnabled": false,
+  "dataEndpointHostNames": [],
+  "encryption": {
+    "keyVaultProperties": null,
+    "status": "disabled"
+  },
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-22249219/providers/Microsoft.ContainerRegistry/registries/whoahub",
+  "identity": null,
+  "location": "westus2",
+  "loginServer": "whoahub.azurecr.io",
+  "name": "whoahub",
+  "networkRuleBypassOptions": "AzureServices",
+  "networkRuleSet": null,
+  "policies": {
+    "azureAdAuthenticationAsArmPolicy": {
+      "status": "enabled"
+    },
+    "exportPolicy": {
+      "status": "enabled"
+    },
+    "quarantinePolicy": {
+      "status": "disabled"
+    },
+    "retentionPolicy": {
+      "days": 7,
+      "lastUpdatedTime": "2023-06-21T23:07:10.520186+00:00",
+      "status": "disabled"
+    },
+    "softDeletePolicy": {
+      "lastUpdatedTime": "2023-06-21T23:07:10.520186+00:00",
+      "retentionDays": 7,
+      "status": "disabled"
+    },
+    "trustPolicy": {
+      "status": "disabled",
+      "type": "Notary"
+    }
+  },
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "resourcegroup-22249219",
+  "sku": {
+    "name": "Standard",
+    "tier": "Standard"
+  },
+  "status": null,
+  "systemData": {
+    "createdAt": "2023-06-21T23:07:02.795750+00:00",
+    "createdBy": "glajik@live.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2023-06-21T23:07:19.520723+00:00",
+    "lastModifiedBy": "glajik@live.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": {},
+  "type": "Microsoft.ContainerRegistry/registries",
+  "zoneRedundancy": "Disabled"
+}
+3. Build and push image from a Dockerfile
+Packing source code into tar to upload...
+Uploading archived source code from '/var/folders/bt/x85jfd390mj8jtc2cxpwtxnc0000gn/T/build_archive_723fbb49c4224ce998fbc90ad14b7571.tar.gz'...
+Sending context (7.750 MiB) to registry: whoahub...
+Queued a build with ID: cc1
+Waiting for an agent...
+2023/06/21 23:07:31 Downloading source code...
+2023/06/21 23:07:32 Finished downloading source code
+2023/06/21 23:07:33 Using acb_vol_088cfc32-4b53-4a80-9952-17e8fc069123 as the home volume
+2023/06/21 23:07:33 Setting up Docker configuration...
+2023/06/21 23:07:33 Successfully set up Docker configuration
+2023/06/21 23:07:33 Logging in to registry: whoahub.azurecr.io
+2023/06/21 23:07:34 Successfully logged into whoahub.azurecr.io
+2023/06/21 23:07:34 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2023/06/21 23:07:34 Scanning for dependencies...
+2023/06/21 23:07:34 Successfully scanned dependencies
+2023/06/21 23:07:34 Launching container with name: build
+Sending build context to Docker daemon  8.634MB
+Step 1/2 : FROM mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine
+1.9.15-alpine: Pulling from oss/nginx/nginx
+24f8a5bf4652: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+402464d84d54: Pulling fs layer
+d2a576340030: Pulling fs layer
+2a7c36f14339: Pulling fs layer
+402464d84d54: Waiting
+d2a576340030: Waiting
+2a7c36f14339: Waiting
+4f4fb700ef54: Download complete
+24f8a5bf4652: Download complete
+24f8a5bf4652: Pull complete
+4f4fb700ef54: Pull complete
+d2a576340030: Verifying Checksum
+d2a576340030: Download complete
+2a7c36f14339: Verifying Checksum
+2a7c36f14339: Download complete
+402464d84d54: Verifying Checksum
+402464d84d54: Download complete
+402464d84d54: Pull complete
+d2a576340030: Pull complete
+2a7c36f14339: Pull complete
+Digest: sha256:fbc5d5e1908997228258b9d99c808b9bd30d821d14758a03573a99d4b365a723
+Status: Downloaded newer image for mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine
+ ---> 3839248a6963
+Step 2/2 : COPY index.html /usr/share/nginx/html
+ ---> 2083211c08da
+Successfully built 2083211c08da
+Successfully tagged whoahub.azurecr.io/ngdemo:v1
+2023/06/21 23:07:46 Successfully executed container: build
+2023/06/21 23:07:46 Executing step ID: push. Timeout(sec): 3600, Working directory: '', Network: ''
+2023/06/21 23:07:46 Pushing image: whoahub.azurecr.io/ngdemo:v1, attempt 1
+The push refers to repository [whoahub.azurecr.io/ngdemo]
+92f1e01daffc: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+6fc274307583: Preparing
+9c0ba3efbd8b: Preparing
+ad3431d16417: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+8f01a53880b9: Preparing
+8f01a53880b9: Waiting
+92f1e01daffc: Pushed
+9c0ba3efbd8b: Pushed
+5f70bf18a086: Pushed
+6fc274307583: Pushed
+8f01a53880b9: Pushed
+ad3431d16417: Pushed
+v1: digest: sha256:953a349a775298d7176128ad83186b635d232595ab6bb47d0f816288a26fb09a size: 2598
+2023/06/21 23:07:50 Successfully pushed image: whoahub.azurecr.io/ngdemo:v1
+2023/06/21 23:07:50 Step ID: build marked as successful (elapsed time in seconds: 11.708528)
+2023/06/21 23:07:50 Populating digests for step ID: build...
+2023/06/21 23:07:51 Successfully populated digests for step ID: build
+2023/06/21 23:07:51 Step ID: push marked as successful (elapsed time in seconds: 4.461686)
+2023/06/21 23:07:51 The following dependencies were found:
+2023/06/21 23:07:51 
+- image:
+    registry: whoahub.azurecr.io
+    repository: ngdemo
+    tag: v1
+    digest: sha256:953a349a775298d7176128ad83186b635d232595ab6bb47d0f816288a26fb09a
+  runtime-dependency:
+    registry: mcr.microsoft.com
+    repository: oss/nginx/nginx
+    tag: 1.9.15-alpine
+    digest: sha256:fbc5d5e1908997228258b9d99c808b9bd30d821d14758a03573a99d4b365a723
+  git: {}
+
+
+Run ID: cc1 was successful after 20s
+WARNING: Change index.html and hit Enter to build image v2
+
+Confirm
+Continue with this operation?
+[Y] Yes  [A] Yes to All  [H] Halt Command  [S] Suspend  [?] Help (default is "Y"): 
+Packing source code into tar to upload...
+Uploading archived source code from '/var/folders/bt/x85jfd390mj8jtc2cxpwtxnc0000gn/T/build_archive_435cc2fd3cd4416bbd2b7f081a6243d1.tar.gz'...
+Sending context (8.245 MiB) to registry: whoahub...
+Queued a build with ID: cc2
+Waiting for an agent...
+2023/06/21 23:11:02 Downloading source code...
+2023/06/21 23:11:03 Finished downloading source code
+2023/06/21 23:11:04 Using acb_vol_ca9adb7b-6ca4-45fa-a3ea-daa09d7b9e18 as the home volume
+2023/06/21 23:11:04 Setting up Docker configuration...
+2023/06/21 23:11:04 Successfully set up Docker configuration
+2023/06/21 23:11:04 Logging in to registry: whoahub.azurecr.io
+2023/06/21 23:11:05 Successfully logged into whoahub.azurecr.io
+2023/06/21 23:11:05 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2023/06/21 23:11:05 Scanning for dependencies...
+2023/06/21 23:11:05 Successfully scanned dependencies
+2023/06/21 23:11:05 Launching container with name: build
+Sending build context to Docker daemon  9.278MB
+Step 1/2 : FROM mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine
+1.9.15-alpine: Pulling from oss/nginx/nginx
+24f8a5bf4652: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+402464d84d54: Pulling fs layer
+d2a576340030: Pulling fs layer
+2a7c36f14339: Pulling fs layer
+d2a576340030: Waiting
+2a7c36f14339: Waiting
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+24f8a5bf4652: Verifying Checksum
+24f8a5bf4652: Download complete
+24f8a5bf4652: Pull complete
+d2a576340030: Verifying Checksum
+d2a576340030: Download complete
+4f4fb700ef54: Pull complete
+2a7c36f14339: Verifying Checksum
+2a7c36f14339: Download complete
+402464d84d54: Verifying Checksum
+402464d84d54: Download complete
+402464d84d54: Pull complete
+d2a576340030: Pull complete
+2a7c36f14339: Pull complete
+Digest: sha256:fbc5d5e1908997228258b9d99c808b9bd30d821d14758a03573a99d4b365a723
+Status: Downloaded newer image for mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine
+ ---> 3839248a6963
+Step 2/2 : COPY index.html /usr/share/nginx/html
+ ---> 93a86771fb93
+Successfully built 93a86771fb93
+Successfully tagged whoahub.azurecr.io/ngdemo:v2
+2023/06/21 23:11:10 Successfully executed container: build
+2023/06/21 23:11:10 Executing step ID: push. Timeout(sec): 3600, Working directory: '', Network: ''
+2023/06/21 23:11:10 Pushing image: whoahub.azurecr.io/ngdemo:v2, attempt 1
+The push refers to repository [whoahub.azurecr.io/ngdemo]
+78bbeae25d43: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+6fc274307583: Preparing
+9c0ba3efbd8b: Preparing
+ad3431d16417: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+5f70bf18a086: Preparing
+8f01a53880b9: Preparing
+8f01a53880b9: Waiting
+9c0ba3efbd8b: Layer already exists
+5f70bf18a086: Layer already exists
+ad3431d16417: Layer already exists
+6fc274307583: Layer already exists
+8f01a53880b9: Layer already exists
+78bbeae25d43: Pushed
+v2: digest: sha256:7714d14de451e1e2ca0964e5aac7ae56cce4b112f6065c7d80ee85df512a8576 size: 2598
+2023/06/21 23:11:17 Successfully pushed image: whoahub.azurecr.io/ngdemo:v2
+2023/06/21 23:11:17 Step ID: build marked as successful (elapsed time in seconds: 4.857104)
+2023/06/21 23:11:17 Populating digests for step ID: build...
+2023/06/21 23:11:18 Successfully populated digests for step ID: build
+2023/06/21 23:11:18 Step ID: push marked as successful (elapsed time in seconds: 6.896849)
+2023/06/21 23:11:18 The following dependencies were found:
+2023/06/21 23:11:18 
+- image:
+    registry: whoahub.azurecr.io
+    repository: ngdemo
+    tag: v2
+    digest: sha256:7714d14de451e1e2ca0964e5aac7ae56cce4b112f6065c7d80ee85df512a8576
+  runtime-dependency:
+    registry: mcr.microsoft.com
+    repository: oss/nginx/nginx
+    tag: 1.9.15-alpine
+    digest: sha256:fbc5d5e1908997228258b9d99c808b9bd30d821d14758a03573a99d4b365a723
+  git: {}
+
+Run ID: cc2 was successful after 16s
+4. Create and run the container
+(InternalServerError) Encountered an internal server error. The tracking activity id is 'c13cb629-889c-4755-9a38-6625fc2b935c', correlation id is '0e6b6db8-6aaf-4b97-8eaa-4a1d93fe064f'.
+Code: InternalServerError
+Message: Encountered an internal server error. The tracking activity id is 'c13cb629-889c-4755-9a38-6625fc2b935c', correlation id is '0e6b6db8-6aaf-4b97-8eaa-4a1d93fe064f'.
+5. Get info
+(ContainerGroupNotFound) The container group 'strange-quark' does not exist.
+Code: ContainerGroupNotFound
+Message: The container group 'strange-quark' does not exist.
+6. See logs
+(ContainerGroupNotFound) The container group 'strange-quark' does not exist.
+Code: ContainerGroupNotFound
+Message: The container group 'strange-quark' does not exist.
