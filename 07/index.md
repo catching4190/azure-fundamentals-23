@@ -6,14 +6,19 @@
 
 Result: commands/script to create objects, create and retrieve secrets/passwords
 
-- [keyvault.ps1](./keyvault.ps1)
+- [keyvault.ps1](./keyvault.ps1) - Creates a KeyVault, stores the generated password and creates a VM using the password extracted from it.
 - [bash-cli.log](./keyvault-bash-cli.log)
-- Resource group screen:
-![Resource group screen](./keyvault-resourcegroup.png)
+- Resource group screen: ![Resource group screen](./keyvault-resourcegroup.png)
 
 ### 2. Create a VM, install/configure a web server (apache, IIS) on port 80 or 443, try to access the page. Then create a NSG with deny rule (tcp 80 /443), apply it to the corresponding subnet or vm interface, try to access the page.
 
 Result: Effective routes output from vm interface with deny tcp 80 rule (screenshot or powershell/az cli output)
+
+- [nsg-vm.ps1](./nsg-vm.ps1) - Creates VM with Apache, set access via 80 port.
+- [bash-cli.log](./nsg-bash-cli.log)
+- Have access to default Apache page via http before apply restrictions ![nsg-access-before-apply.png](./nsg-access-before-apply.png)
+- Access denied after restrictions was applied ![nsg-access-after-apply.png](./nsg-access-after-apply.png)
+- Network Security Group view with deny rule ![nsg-view.png](./nsg-view.png)
 
 ## Creating and managing KeyVault
 
@@ -47,3 +52,16 @@ az keyvault key list
 # Returns "9czgW0KBCEXxZIbbMRaI5aAssoQkXjSEGo3uW6RoC30=" which useful to generate passwords
 openssl rand -base64 32
 ```
+
+## Network Security Groups
+
+### Reference
+
+- [Building an Apache Server on an Azure VM](https://medium.com/@the.nick.miller/building-an-apache-server-on-an-azure-vm-778ae9e59e8a)
+- [NSG Overview](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
+- [How network security groups filter network traffic](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works)
+- [Manage network security groups](https://learn.microsoft.com/en-us/azure/virtual-network/manage-network-security-group?tabs=network-security-group-portal)
+- [az network nsg](https://learn.microsoft.com/en-us/cli/azure/network/nsg?view=azure-cli-latest)
+- [az network nsg rule create](https://learn.microsoft.com/en-us/cli/azure/network/nsg/rule?view=azure-cli-latest#az-network-nsg-rule-create)
+- [az network nic update](https://learn.microsoft.com/en-us/cli/azure/network/nic?view=azure-cli-latest#az-network-nic-update)
+- [Diagnose a virtual machine network traffic filter problem](https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-traffic-filter-problem#diagnose-using-azure-cli)
