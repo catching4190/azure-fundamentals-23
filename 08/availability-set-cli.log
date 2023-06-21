@@ -1,0 +1,1239 @@
+1. Create Resource Group
+
+ResourceGroupName : resourcegroup-2106695038
+Location          : eastus
+ProvisioningState : Succeeded
+Tags              : 
+ResourceId        : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038
+
+2. Create Availability Set
+
+ResourceGroupName             : resourcegroup-2106695038
+Id                            : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Compute/availabilitySets/availabilityset-2106
+                                695038
+Name                          : availabilityset-2106695038
+Type                          : Microsoft.Compute/availabilitySets
+Location                      : eastus
+Tags                          : {}
+TagsText                      : {}
+PlatformFaultDomainCount      : 2
+PlatformUpdateDomainCount     : 2
+Statuses                      : {}
+StatusesText                  : []
+VirtualMachinesReferences     : {}
+VirtualMachinesReferencesText : []
+Sku                           : Aligned
+ProximityPlacementGroup       : 
+RequestId                     : 8421dd32-3c04-4c43-8335-f472d8f9a01b
+StatusCode                    : OK
+
+3. Create Virtual Network
+
+WARNING: Upcoming breaking changes in the cmdlet 'New-AzVirtualNetworkSubnetConfig' :
+Update Property Name
+Cmdlet invocation changes :
+    Old Way : -ResourceId
+    New Way : -NatGatewayId
+Update Property Name
+Cmdlet invocation changes :
+    Old Way : -InputObject
+    New Way : -NatGateway
+Note : Go to https://aka.ms/azps-changewarnings for steps to suppress this breaking change warning, and other information on breaking changes in Azure PowerShell.
+
+AddressSpace               : Microsoft.Azure.Commands.Network.Models.PSAddressSpace
+DhcpOptions                : Microsoft.Azure.Commands.Network.Models.PSDhcpOptions
+FlowTimeoutInMinutes       : 
+Subnets                    : {subnet-2106695038}
+BgpCommunities             : 
+Encryption                 : 
+VirtualNetworkPeerings     : {}
+ProvisioningState          : Succeeded
+EnableDdosProtection       : False
+DdosProtectionPlan         : 
+IpAllocations              : {}
+ExtendedLocation           : 
+AddressSpaceText           : {
+                               "AddressPrefixes": [
+                                 "10.0.0.0/16"
+                               ]
+                             }
+DhcpOptionsText            : {}
+FlowTimeoutInMinutesText   : null
+SubnetsText                : [
+                               {
+                                 "Delegations": [],
+                                 "Name": "subnet-2106695038",
+                                 "Etag": "W/\"72a287be-7d64-46c3-88a5-69432fbdd9b6\"",
+                                 "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/virtualNetworks/vnet-21066950
+                             38/subnets/subnet-2106695038",
+                                 "AddressPrefix": [
+                                   "10.0.1.0/24"
+                                 ],
+                                 "IpConfigurations": [],
+                                 "ServiceAssociationLinks": [],
+                                 "ResourceNavigationLinks": [],
+                                 "ServiceEndpoints": [],
+                                 "ServiceEndpointPolicies": [],
+                                 "PrivateEndpoints": [],
+                                 "ProvisioningState": "Succeeded",
+                                 "PrivateEndpointNetworkPolicies": "Disabled",
+                                 "PrivateLinkServiceNetworkPolicies": "Enabled",
+                                 "IpAllocations": []
+                               }
+                             ]
+BgpCommunitiesText         : null
+EncryptionText             : null
+VirtualNetworkPeeringsText : []
+EnableDdosProtectionText   : false
+DdosProtectionPlanText     : null
+IpAllocationsText          : []
+ExtendedLocationText       : null
+ResourceGroupName          : resourcegroup-2106695038
+Location                   : eastus
+ResourceGuid               : 477f56c8-d231-441a-9acc-668133bfcdea
+Type                       : Microsoft.Network/virtualNetworks
+Tag                        : 
+TagsTable                  : 
+Name                       : vnet-2106695038
+Etag                       : W/"72a287be-7d64-46c3-88a5-69432fbdd9b6"
+Id                         : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/virtualNetworks/vnet-2106695038
+
+4. Create Network Security Group
+
+FlushConnection          : False
+SecurityRules            : {}
+DefaultSecurityRules     : {AllowVnetInBound, AllowAzureLoadBalancerInBound, DenyAllInBound, AllowVnetOutBound…}
+NetworkInterfaces        : {}
+Subnets                  : {}
+ProvisioningState        : Succeeded
+FlushConnectionText      : false
+SecurityRulesText        : []
+DefaultSecurityRulesText : [
+                             {
+                               "Name": "AllowVnetInBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/AllowVnetInBound",
+                               "Description": "Allow inbound traffic from all VMs in VNET",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "VirtualNetwork"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "VirtualNetwork"
+                               ],
+                               "Access": "Allow",
+                               "Priority": 65000,
+                               "Direction": "Inbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             },
+                             {
+                               "Name": "AllowAzureLoadBalancerInBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/AllowAzureLoadBalancerInBound",
+                               "Description": "Allow inbound traffic from azure load balancer",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "AzureLoadBalancer"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "*"
+                               ],
+                               "Access": "Allow",
+                               "Priority": 65001,
+                               "Direction": "Inbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             },
+                             {
+                               "Name": "DenyAllInBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/DenyAllInBound",
+                               "Description": "Deny all inbound traffic",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "*"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "*"
+                               ],
+                               "Access": "Deny",
+                               "Priority": 65500,
+                               "Direction": "Inbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             },
+                             {
+                               "Name": "AllowVnetOutBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/AllowVnetOutBound",
+                               "Description": "Allow outbound traffic from all VMs to all VMs in VNET",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "VirtualNetwork"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "VirtualNetwork"
+                               ],
+                               "Access": "Allow",
+                               "Priority": 65000,
+                               "Direction": "Outbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             },
+                             {
+                               "Name": "AllowInternetOutBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/AllowInternetOutBound",
+                               "Description": "Allow outbound traffic from all VMs to Internet",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "*"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "Internet"
+                               ],
+                               "Access": "Allow",
+                               "Priority": 65001,
+                               "Direction": "Outbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             },
+                             {
+                               "Name": "DenyAllOutBound",
+                               "Etag": "W/\"90889954-d484-4157-8749-4d661bca0928\"",
+                               "Id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-21066
+                           95038/defaultSecurityRules/DenyAllOutBound",
+                               "Description": "Deny all outbound traffic",
+                               "Protocol": "*",
+                               "SourcePortRange": [
+                                 "*"
+                               ],
+                               "DestinationPortRange": [
+                                 "*"
+                               ],
+                               "SourceAddressPrefix": [
+                                 "*"
+                               ],
+                               "DestinationAddressPrefix": [
+                                 "*"
+                               ],
+                               "Access": "Deny",
+                               "Priority": 65500,
+                               "Direction": "Outbound",
+                               "ProvisioningState": "Succeeded",
+                               "SourceApplicationSecurityGroups": [],
+                               "DestinationApplicationSecurityGroups": []
+                             }
+                           ]
+NetworkInterfacesText    : []
+SubnetsText              : []
+ResourceGroupName        : resourcegroup-2106695038
+Location                 : eastus
+ResourceGuid             : d0875f69-83ba-48dd-95f6-2045e40cf587
+Type                     : Microsoft.Network/networkSecurityGroups
+Tag                      : 
+TagsTable                : 
+Name                     : nsg-2106695038
+Etag                     : W/"90889954-d484-4157-8749-4d661bca0928"
+Id                       : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038
+
+{
+  "access": "Allow",
+  "destinationAddressPrefix": "*",
+  "destinationAddressPrefixes": [],
+  "destinationPortRanges": [
+    "80",
+    "443"
+  ],
+  "direction": "Inbound",
+  "etag": "W/\"d1f197c6-4db5-477a-b92a-f79d8e02494a\"",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/securityRules/nsg-rule-allow-vnet",
+  "name": "nsg-rule-allow-vnet",
+  "priority": 100,
+  "protocol": "Tcp",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+  "sourceAddressPrefix": "VirtualNetwork",
+  "sourceAddressPrefixes": [],
+  "sourcePortRange": "*",
+  "sourcePortRanges": [],
+  "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+}
+
+5. Create 2 VMs and add nginx to each
+
+WARNING: Upcoming breaking changes in the cmdlet 'New-AzVM' :
+Consider using the image alias including the version of the distribution you want to use in the "-Image" parameter of the "New-AzVM" cmdlet. On April 30, 2023, the image deployed using `UbuntuLTS` will reach its end of life. In October 2023, the aliases `UbuntuLTS`, `CentOS`, `Debian`, and `RHEL` will be removed.
+Starting in May 2023 the "New-AzVM" cmdlet will deploy with the Trusted Launch configuration by default. To know more about Trusted Launch, please visit https://docs.microsoft.com/en-us/azure/virtual-machines/trusted-launch
+It is recommended to use parameter "-PublicIpSku Standard" in order to create a new VM with a Standard public IP.Specifying zone(s) using the "-Zone" parameter will also result in a Standard public IP.If "-Zone" and "-PublicIpSku" are not specified, the VM will be created with a Basic public IP instead.Please note that the Standard SKU IPs will become the default behavior for VM creation in the future
+Note : Go to https://aka.ms/azps-changewarnings for steps to suppress this breaking change warning, and other information on breaking changes in Azure PowerShell.
+Private key is saved to /Users/vglazhevskyi/.ssh/1687390217
+Public key is saved to /Users/vglazhevskyi/.ssh/1687390217.pub
+                                                                                                                        
+ResourceGroupName        : resourcegroup-2106695038                                                                     
+Id                       : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Compute/virtualMachines/vm-2106695038-1
+VmId                     : 5a41b5be-9593-4bd4-bac9-52c90f5ea6e0                                                         
+Name                     : vm-2106695038-1                                                                              
+Type                     : Microsoft.Compute/virtualMachines                                                            
+Location                 : eastus                                                                                       
+ExtendedLocation         :                                                                                              
+LicenseType              :                                                                                              
+Tags                     : {}                                                                                           
+AvailabilitySetReference : Microsoft.Azure.Management.Compute.Models.SubResource                                        
+DiagnosticsProfile       :                                                                                              
+Extensions               : {}                                                                                           
+HardwareProfile          : Microsoft.Azure.Management.Compute.Models.HardwareProfile                                    
+InstanceView             :                                                                                              
+NetworkProfile           : Microsoft.Azure.Management.Compute.Models.NetworkProfile                                     
+SecurityProfile          :                                                                                              
+OsName                   :                                                                                              
+OsVersion                :                                                                                              
+HyperVGeneration         :                                                                                              
+OSProfile                : Microsoft.Azure.Management.Compute.Models.OSProfile                                          
+BillingProfile           :                                                                                              
+Plan                     :                                                                                              
+ProvisioningState        : Succeeded                                                                                    
+StorageProfile           : Microsoft.Azure.Management.Compute.Models.StorageProfile                                     
+DisplayHint              : Compact                                                                                      
+Identity                 :                                                                                              
+Zones                    :                                                                                              
+FullyQualifiedDomainName : vm-2106695038-1-31856b.East US.cloudapp.azure.com                                            
+AdditionalCapabilities   :                                                                                              
+ProximityPlacementGroup  :                                                                                              
+Host                     :                                                                                              
+VirtualMachineScaleSet   :                                                                                              
+EvictionPolicy           :                                                                                              
+Priority                 :                                                                                              
+HostGroup                :                                                                                              
+CapacityReservation      :                                                                                              
+UserData                 :                                                                                              
+ApplicationProfile       :                                                                                              
+PlatformFaultDomain      :                                                                                              
+TimeCreated              : 6/21/2023 11:30:25 PM                                                                        
+RequestId                :                                                                                              
+StatusCode               : 0                                                                                            
+                                                                                                                        
+{
+  "defaultSecurityRules": [
+    {
+      "access": "Allow",
+      "description": "Allow inbound traffic from all VMs in VNET",
+      "destinationAddressPrefix": "VirtualNetwork",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowVnetInBound",
+      "name": "AllowVnetInBound",
+      "priority": 65000,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow inbound traffic from azure load balancer",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowAzureLoadBalancerInBound",
+      "name": "AllowAzureLoadBalancerInBound",
+      "priority": 65001,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "AzureLoadBalancer",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Deny",
+      "description": "Deny all inbound traffic",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/DenyAllInBound",
+      "name": "DenyAllInBound",
+      "priority": 65500,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+      "destinationAddressPrefix": "VirtualNetwork",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowVnetOutBound",
+      "name": "AllowVnetOutBound",
+      "priority": 65000,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow outbound traffic from all VMs to Internet",
+      "destinationAddressPrefix": "Internet",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowInternetOutBound",
+      "name": "AllowInternetOutBound",
+      "priority": 65001,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Deny",
+      "description": "Deny all outbound traffic",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/DenyAllOutBound",
+      "name": "DenyAllOutBound",
+      "priority": 65500,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    }
+  ],
+  "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+  "flushConnection": false,
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038",
+  "location": "eastus",
+  "name": "nsg-2106695038",
+  "networkInterfaces": [
+    {
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkInterfaces/vm-2106695038-1",
+      "resourceGroup": "resourcegroup-2106695038"
+    }
+  ],
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+  "resourceGuid": "d0875f69-83ba-48dd-95f6-2045e40cf587",
+  "securityRules": [
+    {
+      "access": "Allow",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRanges": [
+        "80",
+        "443"
+      ],
+      "direction": "Inbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/securityRules/nsg-rule-allow-vnet",
+      "name": "nsg-rule-allow-vnet",
+      "priority": 100,
+      "protocol": "Tcp",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+    },
+    {
+      "access": "Allow",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "80",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"e202c0e2-634b-4f48-b068-876e210c2e21\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/securityRules/open-port-80",
+      "name": "open-port-80",
+      "priority": 900,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+    }
+  ],
+  "type": "Microsoft.Network/networkSecurityGroups"
+}
+WARNING: Upcoming breaking changes in the cmdlet 'New-AzVM' :                                                           
+Consider using the image alias including the version of the distribution you want to use in the "-Image" parameter of the "New-AzVM" cmdlet. On April 30, 2023, the image deployed using `UbuntuLTS` will reach its end of life. In October 2023, the aliases `UbuntuLTS`, `CentOS`, `Debian`, and `RHEL` will be removed.
+Starting in May 2023 the "New-AzVM" cmdlet will deploy with the Trusted Launch configuration by default. To know more about Trusted Launch, please visit https://docs.microsoft.com/en-us/azure/virtual-machines/trusted-launch
+It is recommended to use parameter "-PublicIpSku Standard" in order to create a new VM with a Standard public IP.Specifying zone(s) using the "-Zone" parameter will also result in a Standard public IP.If "-Zone" and "-PublicIpSku" are not specified, the VM will be created with a Basic public IP instead.Please note that the Standard SKU IPs will become the default behavior for VM creation in the future
+Note : Go to https://aka.ms/azps-changewarnings for steps to suppress this breaking change warning, and other information on breaking changes in Azure PowerShell.
+Private key is saved to /Users/vglazhevskyi/.ssh/1687390294                                                          ]
+                                                                                                                        
+ResourceGroupName        : resourcegroup-2106695038                                                                     
+Id                       : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Compute/virtualMachines/vm-2106695038-2
+VmId                     : 3cf6c78e-d659-4a53-8fd3-9f15f73900fc                                                         
+Name                     : vm-2106695038-2                                                                              
+Type                     : Microsoft.Compute/virtualMachines                                                            
+Location                 : eastus                                                                                       
+ExtendedLocation         :                                                                                              
+LicenseType              :                                                                                              
+Tags                     : {}                                                                                           
+AvailabilitySetReference : Microsoft.Azure.Management.Compute.Models.SubResource                                        
+DiagnosticsProfile       :                                                                                              
+Extensions               : {}                                                                                           
+HardwareProfile          : Microsoft.Azure.Management.Compute.Models.HardwareProfile                                    
+InstanceView             :                                                                                              
+NetworkProfile           : Microsoft.Azure.Management.Compute.Models.NetworkProfile                                     
+SecurityProfile          :                                                                                              
+OsName                   :                                                                                              
+OsVersion                :                                                                                              
+HyperVGeneration         :                                                                                              
+OSProfile                : Microsoft.Azure.Management.Compute.Models.OSProfile                                          
+BillingProfile           :                                                                                              
+Plan                     :                                                                                              
+ProvisioningState        : Succeeded                                                                                    
+StorageProfile           : Microsoft.Azure.Management.Compute.Models.StorageProfile                                     
+DisplayHint              : Compact                                                                                      
+Identity                 :                                                                                              
+Zones                    :                                                                                              
+FullyQualifiedDomainName : vm-2106695038-2-4e9ea6.East US.cloudapp.azure.com                                            
+AdditionalCapabilities   :                                                                                              
+ProximityPlacementGroup  :                                                                                              
+Host                     :                                                                                              
+VirtualMachineScaleSet   :                                                                                              
+EvictionPolicy           :                                                                                              
+Priority                 :                                                                                              
+HostGroup                :                                                                                              
+CapacityReservation      :                                                                                              
+UserData                 :                                                                                              
+ApplicationProfile       :                                                                                              
+PlatformFaultDomain      :                                                                                              
+TimeCreated              : 6/21/2023 11:31:45 PM                                                                        
+RequestId                :                                                                                              
+StatusCode               : 0                                                                                            
+                                                                                                                        
+{
+  "defaultSecurityRules": [6% |                                                                                      ]
+    {
+      "access": "Allow",
+      "description": "Allow inbound traffic from all VMs in VNET",
+      "destinationAddressPrefix": "VirtualNetwork",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowVnetInBound",
+      "name": "AllowVnetInBound",
+      "priority": 65000,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow inbound traffic from azure load balancer",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowAzureLoadBalancerInBound",
+      "name": "AllowAzureLoadBalancerInBound",
+      "priority": 65001,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "AzureLoadBalancer",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Deny",
+      "description": "Deny all inbound traffic",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/DenyAllInBound",
+      "name": "DenyAllInBound",
+      "priority": 65500,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+      "destinationAddressPrefix": "VirtualNetwork",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowVnetOutBound",
+      "name": "AllowVnetOutBound",
+      "priority": 65000,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Allow",
+      "description": "Allow outbound traffic from all VMs to Internet",
+      "destinationAddressPrefix": "Internet",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/AllowInternetOutBound",
+      "name": "AllowInternetOutBound",
+      "priority": 65001,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    },
+    {
+      "access": "Deny",
+      "description": "Deny all outbound traffic",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "*",
+      "destinationPortRanges": [],
+      "direction": "Outbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/defaultSecurityRules/DenyAllOutBound",
+      "name": "DenyAllOutBound",
+      "priority": 65500,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules"
+    }
+  ],
+  "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+  "flushConnection": false,
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038",
+  "location": "eastus",
+  "name": "nsg-2106695038",
+  "networkInterfaces": [
+    {
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkInterfaces/vm-2106695038-1",
+      "resourceGroup": "resourcegroup-2106695038"
+    },
+    {
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkInterfaces/vm-2106695038-2",
+      "resourceGroup": "resourcegroup-2106695038"
+    }
+  ],
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+  "resourceGuid": "d0875f69-83ba-48dd-95f6-2045e40cf587",
+  "securityRules": [
+    {
+      "access": "Allow",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRanges": [
+        "80",
+        "443"
+      ],
+      "direction": "Inbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/securityRules/nsg-rule-allow-vnet",
+      "name": "nsg-rule-allow-vnet",
+      "priority": 100,
+      "protocol": "Tcp",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "VirtualNetwork",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+    },
+    {
+      "access": "Allow",
+      "destinationAddressPrefix": "*",
+      "destinationAddressPrefixes": [],
+      "destinationPortRange": "80",
+      "destinationPortRanges": [],
+      "direction": "Inbound",
+      "etag": "W/\"4a965a79-b0fb-4ee7-a1e2-524c072b513f\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/networkSecurityGroups/nsg-2106695038/securityRules/open-port-80",
+      "name": "open-port-80",
+      "priority": 900,
+      "protocol": "*",
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "sourceAddressPrefix": "*",
+      "sourceAddressPrefixes": [],
+      "sourcePortRange": "*",
+      "sourcePortRanges": [],
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+    }
+  ],
+}
+
+6. Create the private subnet required by Application Gateway                                                            
+
+WARNING: Upcoming breaking changes in the cmdlet 'New-AzVirtualNetworkSubnetConfig' :                                   
+Update Property Name                                                                                                    
+Cmdlet invocation changes :
+    Old Way : -ResourceId
+    New Way : -NatGatewayId
+Update Property Name
+Cmdlet invocation changes :
+    Old Way : -InputObject
+    New Way : -NatGateway
+Note : Go to https://aka.ms/azps-changewarnings for steps to suppress this breaking change warning, and other information on breaking changes in Azure PowerShell.
+                                                                                                                        
+AddressPrefix                     : {10.0.0.0/24}                                                                       
+IpConfigurations                  :                                                                                     
+ServiceAssociationLinks           :                                                                                     
+ResourceNavigationLinks           :                                                                                     
+NetworkSecurityGroup              :                                                                                     
+RouteTable                        :                                                                                     
+NatGateway                        :                                                                                     
+ServiceEndpoints                  :                                                                                     
+ServiceEndpointPolicies           :                                                                                     
+Delegations                       :                                                                                     
+PrivateEndpoints                  :                                                                                     
+ProvisioningState                 :                                                                                     
+PrivateEndpointNetworkPolicies    : Disabled                                                                            
+PrivateLinkServiceNetworkPolicies : Enabled                                                                             
+IpAllocations                     : {}                                                                                  
+IpConfigurationsText              : null                                                                                
+ServiceAssociationLinksText       : null                                                                                
+ResourceNavigationLinksText       : null                                                                                
+NetworkSecurityGroupText          : null                                                                                
+RouteTableText                    : null                                                                                
+NatGatewayText                    : null                                                                                
+ServiceEndpointText               : null                                                                                
+ServiceEndpointPoliciesText       : null                                                                                
+PrivateEndpointsText              : null                                                                                
+DelegationsText                   : null                                                                                
+IpAllocationsText                 : []                                                                                  
+Name                              : appGatewaySubnet                                                                    
+Etag                              :                                                                                     
+Id                                :                                                                                     
+                                                                                                                        
+7. Create a public IP address and DNS label for Application Gateway
+
+WARNING: Upcoming breaking changes in the cmdlet 'New-AzPublicIpAddress' :                                              
+Default behaviour of Zone will be changed                                                                               
+Cmdlet invocation changes :
+    Old Way : Sku = Standard means the Standard Public IP is zone-redundant.
+    New Way : Sku = Standard and Zone = {} means the Standard Public IP has no zones. If you want to create a zone-redundant Public IP address, please specify all the zones in the region. For example, Zone = ['1', '2', '3'].
+It is recommended to use parameter '-Sku Standard' to create new IP address. Please note that it will become the default behavior for IP address creation in the future.
+Note : Go to https://aka.ms/azps-changewarnings for steps to suppress this breaking change warning, and other information on breaking changes in Azure PowerShell.
+                                                                                                                        
+ExtendedLocation         :                                                                                              
+PublicIpAllocationMethod : Static                                                                                       
+Sku                      : Microsoft.Azure.Commands.Network.Models.PSPublicIpAddressSku                                 
+IpConfiguration          :                                                                                              
+DnsSettings              : Microsoft.Azure.Commands.Network.Models.PSPublicIpAddressDnsSettings                         
+DdosSettings             : Microsoft.Azure.Commands.Network.Models.PSDdosSettings                                       
+IpTags                   : {}                                                                                           
+IpAddress                : 20.163.251.88                                                                                
+PublicIpAddressVersion   : IPv4                                                                                         
+IdleTimeoutInMinutes     : 4                                                                                            
+Zones                    : {}                                                                                           
+ProvisioningState        : Succeeded                                                                                    
+PublicIpPrefix           :                                                                                              
+IpConfigurationText      : null                                                                                         
+DdosSettingsText         : {                                                                                            
+                             "ProtectionMode": "VirtualNetworkInherited"                                                
+                           }                                                                                            
+DnsSettingsText          : {                                                                                            
+                             "DomainNameLabel": "myapp-2106695038",                                                     
+                             "Fqdn": "myapp-2106695038.eastus.cloudapp.azure.com"                                       
+                           }                                                                                            
+IpTagsText               : []                                                                                           
+SkuText                  : {                                                                                            
+                             "Name": "Standard",                                                                        
+                             "Tier": "Regional"                                                                         
+                           }                                                                                            
+PublicIpPrefixText       : null                                                                                         
+ExtendedLocationText     : null                                                                                         
+ResourceGroupName        : resourcegroup-2106695038                                                                     
+Location                 : eastus                                                                                       
+ResourceGuid             : 0f15fec3-a39d-446b-9c34-b7024fd40729                                                         
+Type                     : Microsoft.Network/publicIPAddresses                                                          
+Tag                      :                                                                                              
+TagsTable                :                                                                                              
+Name                     : appGatewayPublicIpAddress                                                                    
+Etag                     : W/"fe076635-179e-4302-b753-4cfe0f375894"                                                     
+Id                       : /subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/publicIPAddresses/appGatewayPublicIpAddres
+                           s                                                                                            
+                                                                                                                        
+8. Create a Firewall Policy Application Gateway      
+
+{reating Azure resources [100% \                                                                                     ]  
+  "customRules": [],rces [46% |                                                                                      ]
+  "etag": "W/\"168c8c8b-86ce-4a3e-8f46-5fd7e62e6cb7\"",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies/appGatewayWafPolicy",
+  "location": "eastus",
+  "managedRules": {
+    "exclusions": [],
+    "managedRuleSets": [
+      {
+        "ruleGroupOverrides": [],
+        "ruleSetType": "OWASP",
+        "ruleSetVersion": "3.2"
+      }
+    ]
+  },
+  "name": "appGatewayWafPolicy",
+  "policySettings": {
+    "fileUploadLimitInMb": 100,
+    "maxRequestBodySizeInKb": 128,
+    "mode": "Detection",
+    "requestBodyCheck": true,
+    "state": "Disabled"
+  },
+  "provisioningState": "Updating",
+  "resourceGroup": "resourcegroup-2106695038",
+
+9. Create an Application Gateway                                                                                        
+
+{
+  "applicationGateway": {[46% |                                                                                      ]
+    "backendAddressPools": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendAddressPools/appGatewayBackendPool",
+        "name": "appGatewayBackendPool",
+        "properties": {
+          "backendAddresses": [],
+          "provisioningState": "Succeeded",
+          "requestRoutingRules": [
+            {
+              "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/requestRoutingRules/rule1",
+              "resourceGroup": "resourcegroup-2106695038"
+            }
+          ]
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/backendAddressPools"
+      }
+    ],
+    "backendHttpSettingsCollection": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+        "name": "appGatewayBackendHttpSettings",
+        "properties": {
+          "connectionDraining": {
+            "drainTimeoutInSec": 1,
+            "enabled": false
+          },
+          "cookieBasedAffinity": "Disabled",
+          "pickHostNameFromBackendAddress": false,
+          "port": 8080,
+          "protocol": "Http",
+          "provisioningState": "Succeeded",
+          "requestRoutingRules": [
+            {
+              "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/requestRoutingRules/rule1",
+              "resourceGroup": "resourcegroup-2106695038"
+            }
+          ],
+          "requestTimeout": 30
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection"
+      }
+    ],
+    "backendSettingsCollection": [],
+    "firewallPolicy": {
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies/appGatewayWafPolicy",
+      "resourceGroup": "resourcegroup-2106695038"
+    },
+    "frontendIPConfigurations": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendIPConfigurations/appGatewayPrivateFrontendIP",
+        "name": "appGatewayPrivateFrontendIP",
+        "properties": {
+          "privateIPAddress": "10.0.0.4",
+          "privateIPAllocationMethod": "Static",
+          "provisioningState": "Succeeded",
+          "subnet": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/virtualNetworks/appGatewayVNet/subnets/appGatewaySubnet",
+            "resourceGroup": "resourcegroup-2106695038"
+          }
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations"
+      },
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendIPConfigurations/appGatewayFrontendIP",
+        "name": "appGatewayFrontendIP",
+        "properties": {
+          "httpListeners": [
+            {
+              "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/httpListeners/appGatewayHttpListener",
+              "resourceGroup": "resourcegroup-2106695038"
+            }
+          ],
+          "privateIPAllocationMethod": "Dynamic",
+          "provisioningState": "Succeeded",
+          "publicIPAddress": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/publicIPAddresses/appGatewayPublicIpAddress",
+            "resourceGroup": "resourcegroup-2106695038"
+          }
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations"
+      }
+    ],
+    "frontendPorts": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendPorts/appGatewayFrontendPort",
+        "name": "appGatewayFrontendPort",
+        "properties": {
+          "httpListeners": [
+            {
+              "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/httpListeners/appGatewayHttpListener",
+              "resourceGroup": "resourcegroup-2106695038"
+            }
+          ],
+          "port": 8080,
+          "provisioningState": "Succeeded"
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/frontendPorts"
+      }
+    ],
+    "gatewayIPConfigurations": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/gatewayIPConfigurations/appGatewayFrontendIP",
+        "name": "appGatewayFrontendIP",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "subnet": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/virtualNetworks/appGatewayVNet/subnets/appGatewaySubnet",
+            "resourceGroup": "resourcegroup-2106695038"
+          }
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/gatewayIPConfigurations"
+      }
+    ],
+    "httpListeners": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/httpListeners/appGatewayHttpListener",
+        "name": "appGatewayHttpListener",
+        "properties": {
+          "frontendIPConfiguration": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendIPConfigurations/appGatewayFrontendIP",
+            "resourceGroup": "resourcegroup-2106695038"
+          },
+          "frontendPort": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendPorts/appGatewayFrontendPort",
+            "resourceGroup": "resourcegroup-2106695038"
+          },
+          "hostNames": [],
+          "protocol": "Http",
+          "provisioningState": "Succeeded",
+          "requestRoutingRules": [
+            {
+              "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/requestRoutingRules/rule1",
+              "resourceGroup": "resourcegroup-2106695038"
+            }
+          ],
+          "requireServerNameIndication": false
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/httpListeners"
+      }
+    ],
+    "listeners": [],
+    "loadDistributionPolicies": [],
+    "operationalState": "Running",
+    "privateEndpointConnections": [],
+    "privateLinkConfigurations": [],
+    "probes": [],
+    "provisioningState": "Succeeded",
+    "redirectConfigurations": [],
+    "requestRoutingRules": [
+      {
+        "etag": "W/\"b0bc8e2b-b7d7-4e6a-a395-2a2bd9f82b60\"",
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/requestRoutingRules/rule1",
+        "name": "rule1",
+        "properties": {
+          "backendAddressPool": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendAddressPools/appGatewayBackendPool",
+            "resourceGroup": "resourcegroup-2106695038"
+          },
+          "backendHttpSettings": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+            "resourceGroup": "resourcegroup-2106695038"
+          },
+          "httpListener": {
+            "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/httpListeners/appGatewayHttpListener",
+            "resourceGroup": "resourcegroup-2106695038"
+          },
+          "priority": 100,
+          "provisioningState": "Succeeded",
+          "ruleType": "Basic"
+        },
+        "resourceGroup": "resourcegroup-2106695038",
+        "type": "Microsoft.Network/applicationGateways/requestRoutingRules"
+      }
+    ],
+    "resourceGuid": "2e550f23-90d3-4ff6-971f-2e80bc59dd54",
+    "rewriteRuleSets": [],
+    "routingRules": [],
+    "sku": {
+      "capacity": 2,
+      "family": "Generation_1",
+      "name": "WAF_v2",
+      "tier": "WAF_v2"
+    },
+    "sslCertificates": [],
+    "sslProfiles": [],
+    "trustedClientCertificates": [],
+    "trustedRootCertificates": [],
+    "urlPathMaps": []
+}
+
+10. Add the back-end pools                                                                                              
+
+{
+  "backendAddresses": [s [46% |                                                                                      ]
+    {
+      "ipAddress": "10.0.1.4"
+    },
+    {
+      "ipAddress": "10.0.1.5"
+    }
+  ],
+  "etag": "W/\"a1bdc361-1361-43c2-afc2-a3ea22b54671\"",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendAddressPools/appGatewayBackendPool",
+  "name": "appGatewayBackendPool",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+11. Create a front-end port for 80                                                                                      
+{
+  "etag": "W/\"d5ec61db-e18a-4d2b-988b-661b87582927\"",                                                              ]
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendPorts/appGatewayFrontendPort",
+  "name": "appGatewayFrontendPort",
+  "port": 80,
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+12. To handle requests on port 80, create the listener                                                                  
+{
+  "etag": "W/\"a3c488e6-8907-4b6a-9401-87ea569c6891\"",                                                              ]
+  "frontendIPConfiguration": {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendIPConfigurations/appGatewayFrontendIP",
+    "resourceGroup": "resourcegroup-2106695038"
+  },
+  "frontendPort": {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/frontendPorts/appGatewayFrontendPort",
+    "resourceGroup": "resourcegroup-2106695038"
+  },
+  "hostNames": [],
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/httpListeners/appGatewayHttpListener",
+  "name": "appGatewayHttpListener",
+  "protocol": "Http",
+  "provisioningState": "Succeeded",
+  "requireServerNameIndication": false,
+  "resourceGroup": "resourcegroup-2106695038",
+}
+
+13. Create a health probe that tests the availability of a web server                                                   
+
+{
+  "etag": "W/\"ff7bba3e-3bb3-4d1a-80c3-2f938d2c318b\"",                                                              ]
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/probes/appGatewayProbe",
+  "interval": 15,
+  "match": {},
+  "minServers": 0,
+  "name": "appGatewayProbe",
+  "path": "/",
+  "pickHostNameFromBackendHttpSettings": true,
+  "protocol": "Http",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+  "timeout": 10,
+  "type": "Microsoft.Network/applicationGateways/probes",
+}
+
+14. To use the health probe recently, create the HTTP Settings for the gateway                                          
+
+{
+  "connectionDraining": {[46% |                                                                                      ]
+    "drainTimeoutInSec": 1,
+    "enabled": false
+  },
+  "cookieBasedAffinity": "Disabled",
+  "etag": "W/\"a4ac245d-8962-4d6a-89b3-a7b2f8d78cfc\"",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+  "name": "appGatewayBackendHttpSettings",
+  "pickHostNameFromBackendAddress": true,
+  "port": 80,
+  "probe": {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/probes/appGatewayProbe",
+    "resourceGroup": "resourcegroup-2106695038"
+  },
+  "protocol": "Http",
+  "provisioningState": "Succeeded",
+  "requestTimeout": 30,
+  "resourceGroup": "resourcegroup-2106695038",
+15. Configure routing                                                                                                   
+{
+  "defaultBackendAddressPool": {                                                                                     ]
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendAddressPools/appGatewayBackendPool",
+    "resourceGroup": "resourcegroup-2106695038"
+  },
+  "defaultBackendHttpSettings": {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+    "resourceGroup": "resourcegroup-2106695038"
+  },
+  "etag": "W/\"d021716e-a234-4a7b-be24-ed0fc259bc69\"",
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/urlPathMaps/appGatewayUrlPathMap",
+  "name": "appGatewayUrlPathMap",
+  "pathRules": [
+    {
+      "backendAddressPool": {
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendAddressPools/appGatewayBackendPool",
+        "resourceGroup": "resourcegroup-2106695038"
+      },
+      "backendHttpSettings": {
+        "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+        "resourceGroup": "resourcegroup-2106695038"
+      },
+      "etag": "W/\"d021716e-a234-4a7b-be24-ed0fc259bc69\"",
+      "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/resourcegroup-2106695038/providers/Microsoft.Network/applicationGateways/appGateway/urlPathMaps/appGatewayUrlPathMap/pathRules/default",
+      "name": "default",
+      "paths": [
+        "/Applications",
+        "/Library",
+        "/System",
+        "/Users"
+      ],
+      "provisioningState": "Succeeded",
+      "resourceGroup": "resourcegroup-2106695038",
+      "type": "Microsoft.Network/applicationGateways/urlPathMaps/pathRules"
+    }
+  ],
+  "provisioningState": "Succeeded",
+  "resourceGroup": "resourcegroup-2106695038",
+}
