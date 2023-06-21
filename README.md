@@ -11,6 +11,7 @@
 7. [Azure Networking and general security and network security features](https://capgemini-my.sharepoint.com/:v:/r/personal/roman_skalish_capgemini_com/Documents/Recordings/Azure%20Fundamentals%20%E2%80%93%20Azure%20Networking%20and%20general%20security%20and%20network%20security%20features-20230523_120208-Meeting%20Recording.mp4?csf=1&web=1&e=k3WLFk) - May 23, 2023
 8. [Azure advanced networking and load balancing](https://capgemini-my.sharepoint.com/:v:/r/personal/roman_skalish_capgemini_com/Documents/Recordings/Azure%20Fundamentals%20-%20Azure%20advanced%20networking_and%20load%20balancing-20230601_120234-Meeting%20Recording.mp4?csf=1&web=1&e=viNWf6) - June 1, 2023
 9. [Azure Container Instances and Azure Kubernetes Service](https://capgemini-my.sharepoint.com/:v:/p/roman_skalish/ES07EA_U4qFPnDZxn080TbEB6chAbNewstk48pkoUsQ7IA) – June 9, 2023
+10. [Azure management infrastructure, Azure cost management and SLA, Azure identity](https://capgemini-my.sharepoint.com/:v:/r/personal/roman_skalish_capgemini_com/Documents/Recordings/Azure%20Fundamentals%20-%20Azure%20management%20infrastructure_%20Azure%20cost%20management%20and%20SLA_%20Azure%20identity%20services%20_Azure%20monitoring-20230613_120127-Meeting%20Recording.mp4?csf=1&web=1&e=mE8K6l) – June 13, 2023
 
 ### By persons
 
