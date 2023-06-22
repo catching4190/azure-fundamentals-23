@@ -9,6 +9,9 @@
 - [availability-set.ps1](./availability-set.ps1)
 - [availability-set-cli.log](./availability-set-cli.log)
 - Resource group view: ![availability-set-resource-group-view.png](./availability-set-resource-group-view.png)
+- Availability Set view: ![availability-set-view.png](./availability-set-view.png)
+- App Gateway view: ![availability-set-app-gateway-view.png](./availability-set-app-gateway-view.png)
+- Round-robin routing: ![availability-set-round-robin-routing.png](./availability-set-round-robin-routing.png)
 
 ### 2. Create 3 vnets, do not exceed 10.0.0.0/16
 

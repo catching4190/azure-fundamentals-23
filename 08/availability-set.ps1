@@ -7,8 +7,9 @@ $vmUser = "azureuser"
 $vmSecret = openssl rand -base64 12 | ConvertTo-SecureString -AsPlainText
 $vmCredentials = New-Object System.Management.Automation.PSCredential ($vmUser, $vmSecret);
 $vnetName = "vnet-$projectName"
-$subnetName = "subnet-$projectName"
+$vmSubnetName = "subnet-$projectName"
 $gatewayName = "appGateway"
+$gatewaySubnetName = "appGatewaySubnet"
 $nsgName = "nsg-$projectName"
 $dnsName = "myapp-$projectName"
 $customScript = "{
@@ -34,15 +35,19 @@ New-AzAvailabilitySet `
 
 Write-Host "3. Create Virtual Network"
 
+$gatewaySubnet = New-AzVirtualNetworkSubnetConfig `
+    -Name $gatewaySubnetName `
+    -AddressPrefix "10.0.0.0/24"
+
 $vmSubnet = New-AzVirtualNetworkSubnetConfig `
-    -Name $subnetName `
+    -Name $vmSubnetName `
     -AddressPrefix "10.0.1.0/24"
 
 New-AzVirtualNetwork `
     -Name $vnetName `
     -ResourceGroupName $rgName `
     -Location $location `
-    -Subnet $vmSubnet `
+    -Subnet $vmSubnet, $gatewaySubnet `
     -AddressPrefix "10.0.0.0/16"
         
 Write-Host "4. Create Network Security Group"
@@ -74,7 +79,7 @@ for ($i = 1; $i -le 2; $i++) {
         -Location $location `
         -ResourceGroupName $rgName `
         -VirtualNetworkName $vnetName `
-        -SubnetName $subnetName `
+        -SubnetName $vmSubnetName `
         -SecurityGroupName $nsgName `
         -Image Ubuntu2204 `
         -Size Standard_DS1_v2 `
@@ -92,19 +97,13 @@ for ($i = 1; $i -le 2; $i++) {
         --settings $customScript `
         --no-wait
     
-    az vm open-port `
-        --port 80 `
-        --resource-group $rgName `
-        --name $vmNameCurrent
+    # az vm open-port `
+    #     --port 80 `
+    #     --resource-group $rgName `
+    #     --name $vmNameCurrent
 }
 
-Write-Host "6. Create the private subnet required by Application Gateway"
-
-New-AzVirtualNetworkSubnetConfig `
-    -Name "appGatewaySubnet" `
-    -AddressPrefix "10.0.0.0/24"
-
-Write-Host "7. Create a public IP address and DNS label for Application Gateway"
+Write-Host "6. Create a public IP address and DNS label for Application Gateway"
 
 New-AzPublicIpAddress `
     -Name "appGatewayPublicIpAddress" `
@@ -114,7 +113,7 @@ New-AzPublicIpAddress `
     -DomainNameLabel $dnsName `
     -AllocationMethod Static
 
-Write-Host "8. Create a Firewall Policy Application Gateway"
+Write-Host "7. Create a Firewall Policy Application Gateway"
 
 az network application-gateway waf-policy create `
     --name "appGatewayWafPolicy" `
@@ -122,15 +121,15 @@ az network application-gateway waf-policy create `
     --type OWASP `
     --version 3.2
 
-Write-Host "9. Create an Application Gateway"
+Write-Host "8. Create an Application Gateway"
 
 az network application-gateway create `
     --resource-group $rgName `
     --name $gatewayName `
     --sku WAF_v2 `
     --capacity 2 `
-    --vnet-name "appGatewayVNet" `
-    --subnet "appGatewaySubnet" `
+    --vnet-name $vnetName `
+    --subnet $gatewaySubnetName `
     --public-ip-address "appGatewayPublicIpAddress" `
     --http-settings-protocol Http `
     --http-settings-port 8080 `
@@ -139,7 +138,7 @@ az network application-gateway create `
     --waf-policy "appGatewayWafPolicy" `
     --priority 100
 
-Write-Host "10. Add the back-end pools"
+Write-Host "9. Add the back-end pools"
 
 az network application-gateway address-pool create `
     --gateway-name $gatewayName `
@@ -147,7 +146,7 @@ az network application-gateway address-pool create `
     --name "appGatewayBackendPool" `
     --servers 10.0.1.4 10.0.1.5
 
-Write-Host "11. Create a front-end port for 80"
+Write-Host "10. Create a front-end port for 80"
 
 az network application-gateway frontend-port create `
     --name "appGatewayFrontendPort" `
@@ -155,7 +154,7 @@ az network application-gateway frontend-port create `
     --gateway-name $gatewayName `
     --port 80
 
-Write-Host "12. To handle requests on port 80, create the listener"
+Write-Host "11. To handle requests on port 80, create the listener"
 
 az network application-gateway http-listener create `
     --resource-group $rgName `
@@ -164,7 +163,7 @@ az network application-gateway http-listener create `
     --frontend-port "appGatewayFrontendPort" `
     --gateway-name $gatewayName
 
-Write-Host "13. Create a health probe that tests the availability of a web server"
+Write-Host "12. Create a health probe that tests the availability of a web server"
 
 az network application-gateway probe create `
     --resource-group $rgName `
@@ -177,7 +176,7 @@ az network application-gateway probe create `
     --protocol Http `
     --host-name-from-http-settings true
 
-Write-Host "14. To use the health probe recently, create the HTTP Settings for the gateway"
+Write-Host "13. To use the health probe recently, create the HTTP Settings for the gateway"
 
 az network application-gateway http-settings create `
     --resource-group $rgName `
@@ -187,7 +186,7 @@ az network application-gateway http-settings create `
     --port 80 `
     --probe "appGatewayProbe"
 
-Write-Host "15. Configure routing"
+Write-Host "14. Configure routing"
 
 az network application-gateway url-path-map create `
     --resource-group $rgName `
