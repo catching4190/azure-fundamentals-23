@@ -1,0 +1,102 @@
+PS /Users/vglazhevskyi/Learning/azure-fundamentals-23/10> ./principal.ps1                       
+
+1. Create Resource group as usual
+
+{
+  "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/testRG",
+  "location": "westus",
+  "managedBy": null,
+  "name": "testRG",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+[
+  {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/testRG",
+    "location": "westus",
+    "managedBy": null,
+    "name": "testRG",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  },
+  {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/NetworkWatcherRG",
+    "location": "eastus",
+    "managedBy": null,
+    "name": "NetworkWatcherRG",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  }
+]
+
+2. Create service account with reader role
+
+Creating 'reader' role assignment under scope 'subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2'
+The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
+{
+  "appId": "0d5a2cef-7a34-48b9-a743-0bf06285fc2c",
+  "displayName": "azure-cli-2023-06-22-00-30-09",
+  "password": "olA8Q~1234567~~.QQJSSeb5RyM9rkbLVv37Tb_h",
+  "tenant": "8d3eeb6d-4534-4933-a2f1-019d9e341771"
+}
+
+3. Authenticate with service account
+
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "8d3eeb6d-4534-4933-a2f1-019d9e341771",
+    "id": "43aa0595-8fda-44a4-b227-f3733785e5c2",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure subscription 1",
+    "state": "Enabled",
+    "tenantId": "8d3eeb6d-4534-4933-a2f1-019d9e341771",
+    "user": {
+      "name": "0d5a2cef-7a34-48b9-a743-0bf06285fc2c",
+      "type": "servicePrincipal"
+    }
+  }
+]
+
+4. Expect fail, when trying to create other Resource group with service account
+
+(AuthorizationFailed) The client '15321ef5-c5d7-4a9d-bc52-26d3956dff0b' with object id '15321ef5-c5d7-4a9d-bc52-26d3956dff0b' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/write' over scope '/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourcegroups/failRG' or the scope is invalid. If access was recently granted, please refresh your credentials.
+Code: AuthorizationFailed
+Message: The client '15321ef5-c5d7-4a9d-bc52-26d3956dff0b' with object id '15321ef5-c5d7-4a9d-bc52-26d3956dff0b' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/write' over scope '/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourcegroups/failRG' or the scope is invalid. If access was recently granted, please refresh your credentials.
+
+5. Expect no error when trying to list resource groups.
+
+[
+  {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/testRG",
+    "location": "westus",
+    "managedBy": null,
+    "name": "testRG",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  },
+  {
+    "id": "/subscriptions/43aa0595-8fda-44a4-b227-f3733785e5c2/resourceGroups/NetworkWatcherRG",
+    "location": "eastus",
+    "managedBy": null,
+    "name": "NetworkWatcherRG",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  }
+]
